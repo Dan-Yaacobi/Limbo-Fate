@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Limbo Fate"
+run/main_scene="res://Player/Scenes/Player.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
