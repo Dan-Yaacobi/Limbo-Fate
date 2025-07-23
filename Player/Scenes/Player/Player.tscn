@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0eeyvfjkf44k"]
+
+[ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
+[ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
+[ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
+[ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/States/player_state_machine.gd" id="5_v4l6t"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/States/idle_state.gd" id="6_0phaw"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/States/walk_state.gd" id="7_2he34"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_5ofxt")
+
+[node name="PlayerBody" parent="." instance=ExtResource("2_rikli")]
+z_index = 1
+
+[node name="PlayerMainHand" parent="." instance=ExtResource("3_mpf64")]
+z_index = 2
+position = Vector2(-5, 5)
+
+[node name="PlayerOffHand" parent="." instance=ExtResource("4_oas5t")]
+z_index = -2
+position = Vector2(2, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="PlayerStateMachine" type="Node2D" parent="."]
+script = ExtResource("5_v4l6t")
+
+[node name="IdleState" type="Node2D" parent="PlayerStateMachine"]
+script = ExtResource("6_0phaw")
+
+[node name="WalkState" type="Node2D" parent="PlayerStateMachine"]
+script = ExtResource("7_2he34")
+
+[node name="OffHandShoulder" type="Node2D" parent="."]
+position = Vector2(2, 5)

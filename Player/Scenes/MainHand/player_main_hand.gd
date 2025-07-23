@@ -1,10 +1,18 @@
-class_name PlayerHand extends CharacterBody2D
+class_name PlayerMainHand extends CharacterBody2D
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hold_position: Node2D = $HoldPosition
+@onready var main_hand_state_machine: Node2D = $MainHandStateMachine
 
 signal pull_string
 var hand_direction: Vector2
 
+var shoot: bool
+
+func _ready() -> void:
+	main_hand_state_machine.Initialize(self)
+	pass
+	
 func _process(delta: float) -> void:
 	calculate_direction_to_cursor()
 	set_hand_direction()
@@ -33,7 +41,8 @@ func pull_animation() -> void:
 	pass
 	
 func stop_animation() -> void:
+	animation_player.stop()
 	animation_player.play("RESET")
 
-func where_to_hold_string(offset) -> Vector2:
-	return hold_position.global_position + offset
+func where_to_hold_string() -> Vector2:
+	return hold_position.global_position

@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Limbo Fate"
-run/main_scene="res://Player/Scenes/Player.tscn"
+run/main_scene="res://Player/Scenes/Player/Player.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerGlobal="*res://Player/Scenes/Player.tscn"
+PlayerGlobal="*res://Player/Scenes/Player/Player.tscn"
 
 [input]
 

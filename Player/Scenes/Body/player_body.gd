@@ -1,4 +1,4 @@
-class_name PlayerBody extends Node2D
+class_name PlayerBody extends CharacterBody2D
 
 
 func _ready() -> void:

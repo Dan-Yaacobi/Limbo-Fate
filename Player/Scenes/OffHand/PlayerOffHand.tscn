@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxk6tfmffd8bb"]
+[gd_scene load_steps=10 format=3 uid="uid://dxk6tfmffd8bb"]
 
 [ext_resource type="Texture2D" uid="uid://d3l31kuovyir1" path="res://Player/Sprites/PlayerOffHandSprite.png" id="1_bfu6e"]
-[ext_resource type="Script" path="res://Player/Scripts/player_off_hand.gd" id="1_os01g"]
+[ext_resource type="Script" path="res://Player/Scenes/OffHand/player_off_hand.gd" id="1_os01g"]
 [ext_resource type="PackedScene" uid="uid://b48p8ycg368a5" path="res://Bow/Scenes/Bow.tscn" id="2_xbtm6"]
+[ext_resource type="Script" path="res://Player/Scenes/OffHand/States/off_hand_state_machine.gd" id="4_4j56a"]
+[ext_resource type="Script" path="res://Player/Scenes/OffHand/States/o_h_idle_state.gd" id="5_7f343"]
+[ext_resource type="Script" path="res://Player/Scenes/OffHand/States/o_h_shooting_state.gd" id="6_rmqb7"]
 
 [sub_resource type="Animation" id="Animation_o0dpc"]
 resource_name = "Pull"
@@ -68,3 +71,12 @@ libraries = {
 
 [node name="MidStringPos" type="Node2D" parent="."]
 position = Vector2(0, 1.66667)
+
+[node name="OffHandStateMachine" type="Node2D" parent="."]
+script = ExtResource("4_4j56a")
+
+[node name="Idle" type="Node2D" parent="OffHandStateMachine"]
+script = ExtResource("5_7f343")
+
+[node name="Shooting" type="Node2D" parent="OffHandStateMachine"]
+script = ExtResource("6_rmqb7")
