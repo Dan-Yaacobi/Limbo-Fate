@@ -35,7 +35,6 @@ func Initialize(_entity: PlayerOffHand)->void:
 	
 	for state in states:
 		state.init()
-		
 	ChangeState(states[0])
 	process_mode = Node.PROCESS_MODE_INHERIT 
 	# because this is an attribute of the Player(Player is the main scene) 
@@ -43,7 +42,6 @@ func Initialize(_entity: PlayerOffHand)->void:
 	
 		
 func ChangeState(new_state: OffHandState) -> void:
-
 	if new_state == null or new_state == curr_state:
 		return
 	if curr_state:

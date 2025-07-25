@@ -1,8 +1,12 @@
-class_name IdleState extends PlayerState
-@onready var walk: WalkState = $"../WalkState"
+class_name DashState extends PlayerState
+@onready var idle: IdleState = $"../IdleState"
 @onready var air: AirState = $"../AirState"
+@onready var dash_timer: Timer = $DashTimer
 
+var dash_finished: bool = false
 func init() -> void:
+	dash_timer.wait_time = entity.stats.dash_length
+	dash_timer.timeout.connect(finished)
 	pass
 	
 func _ready() -> void:
@@ -10,29 +14,32 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	await get_tree().create_timer(0.1).timeout
-	if entity.direction == 0:
-		entity.body.update_animation("Idle")
+	dash_finished = false
+	dash_timer.start()
+	#entity.body.update_animation("Dash")
+	entity.velocity.x = 0
+	entity.velocity.x = entity.stats.dash_speed * entity.direction
 	pass
 	
 #what happens when the player exits this state
 func Exit() -> void:
+	dash_timer.stop()
 	pass
 	
 #what happens during process update in this state
 func Process(_delta: float) -> PlayerState:
-	if entity.direction != 0:
-		return walk
-	if entity.velocity.y != 0:
-		return air
+	if dash_finished:
+		return idle
 	return null
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> PlayerState:
+	#entity.update_direction(entity.direction < 0)
 	return null
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> PlayerState:
 	return null
 	
-	
+func finished() -> void:
+	dash_finished = true

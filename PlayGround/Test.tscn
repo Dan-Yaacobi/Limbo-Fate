@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj4ndhuqfqy2u"]
+
+[ext_resource type="Texture2D" uid="uid://cesktjcapgpwo" path="res://PlayGround/Sprites/WoodPlatform.png" id="1_7l3w3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_belp0"]
+size = Vector2(17, 3)
+
+[node name="Test" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(10, 10)
+
+[node name="Platform" type="CharacterBody2D" parent="Node2D"]
+position = Vector2(-10, 15)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")
+
+[node name="Platform2" type="CharacterBody2D" parent="Node2D"]
+position = Vector2(-22, 15)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform2"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform2"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")
+
+[node name="Platform5" type="CharacterBody2D" parent="Node2D"]
+position = Vector2(-33, 15)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform5"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform5"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")
+
+[node name="Platform6" type="CharacterBody2D" parent="Node2D"]
+position = Vector2(-45, 15)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform6"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform6"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")
+
+[node name="Platform3" type="CharacterBody2D" parent="Node2D/Platform6"]
+position = Vector2(-12, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform6/Platform3"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform6/Platform3"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")
+
+[node name="Platform4" type="CharacterBody2D" parent="Node2D/Platform6"]
+position = Vector2(-24, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="WoodPlatform" type="Sprite2D" parent="Node2D/Platform6/Platform4"]
+texture = ExtResource("1_7l3w3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Platform6/Platform4"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_belp0")

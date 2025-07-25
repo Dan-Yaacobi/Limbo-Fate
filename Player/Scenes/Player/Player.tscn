@@ -1,15 +1,47 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0eeyvfjkf44k"]
+[gd_scene load_steps=15 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
 [ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
 [ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
 [ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/player_state_machine.gd" id="5_v4l6t"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/idle_state.gd" id="6_0phaw"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/walk_state.gd" id="7_2he34"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/States/air_state.gd" id="9_d4cib"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/States/dash_state.gd" id="10_483r8"]
+
+[sub_resource type="Resource" id="Resource_o120a"]
+script = ExtResource("2_65vyv")
+max_hp = 10
+current_hp = 10
+knockback_resistance = 0.0
+max_pull_strength = 0.0
+pull_strength_modifider = 0.0
+pull_speed = 1.0
+move_speed = 50.0
+min_move_shoot_spd = 0.1
+gravity = 150.0
+jump_power = 75.0
+total_jumps = 1
+can_dash = true
+dash_length = 0.2
+dash_speed = 150.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3heyw"]
+radius = 7.5
+height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xurhv"]
+size = Vector2(13, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfc4m"]
+size = Vector2(11, 0.75)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 7
 script = ExtResource("1_5ofxt")
+stats = SubResource("Resource_o120a")
 
 [node name="PlayerBody" parent="." instance=ExtResource("2_rikli")]
 z_index = 1
@@ -19,10 +51,7 @@ z_index = 2
 position = Vector2(-5, 5)
 
 [node name="PlayerOffHand" parent="." instance=ExtResource("4_oas5t")]
-z_index = -2
 position = Vector2(2, 5)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -36,5 +65,31 @@ script = ExtResource("6_0phaw")
 [node name="WalkState" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("7_2he34")
 
+[node name="AirState" type="Node2D" parent="PlayerStateMachine"]
+script = ExtResource("9_d4cib")
+
+[node name="DashState" type="Node2D" parent="PlayerStateMachine"]
+script = ExtResource("10_483r8")
+
+[node name="DashTimer" type="Timer" parent="PlayerStateMachine/DashState"]
+
 [node name="OffHandShoulder" type="Node2D" parent="."]
 position = Vector2(2, 5)
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+z_index = 5
+position = Vector2(-1.5, 3)
+shape = SubResource("CapsuleShape2D_3heyw")
+debug_color = Color(0.991774, 0, 0.261108, 0.42)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+z_index = 5
+position = Vector2(-1.5, 5)
+shape = SubResource("RectangleShape2D_xurhv")
+
+[node name="JumpReset" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpReset"]
+position = Vector2(-1.5, 16)
+shape = SubResource("RectangleShape2D_nfc4m")
+debug_color = Color(2.40654e-07, 0.63859, 0.376598, 0.42)

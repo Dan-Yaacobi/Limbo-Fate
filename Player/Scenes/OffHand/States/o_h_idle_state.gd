@@ -10,7 +10,7 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	#entity.rotation = 0
+	entity.rotation = 0
 	entity.z_index = -2
 	entity.animation_player.play("RESET")
 	if entity.shoulder != null:

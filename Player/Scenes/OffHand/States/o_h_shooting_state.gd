@@ -10,6 +10,7 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
+	entity.animation_player.speed_scale = GlobalPlayer.stats.pull_speed
 	entity.z_index = 0
 	entity.animation_player.play("Pull")
 	pass

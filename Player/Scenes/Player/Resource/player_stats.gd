@@ -1,0 +1,26 @@
+class_name PlayerStats extends Resource
+
+@export_subgroup("Base Stats")
+@export var max_hp: int = 10
+@export var current_hp: int = 10
+@export var knockback_resistance: float = 0
+
+@export_subgroup("Shooting Stats")
+@export var max_pull_strength: float
+@export var pull_strength_modifider: float
+@export var pull_speed: float = 1:
+	get:
+		return pull_speed
+	set(value):
+		pull_speed = clamp(value,1,5)
+
+
+@export_subgroup("Movement")
+@export var move_speed: float
+@export var min_move_shoot_spd: float
+@export var gravity: float
+@export var jump_power: float
+@export var total_jumps: int = 1
+@export var can_dash: bool = false
+@export var dash_length: float = 1.0
+@export var dash_speed: float = 20
