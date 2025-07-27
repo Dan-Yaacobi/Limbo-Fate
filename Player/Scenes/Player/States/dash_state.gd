@@ -2,8 +2,10 @@ class_name DashState extends PlayerState
 @onready var idle: IdleState = $"../IdleState"
 @onready var air: AirState = $"../AirState"
 @onready var dash_timer: Timer = $DashTimer
+@onready var dash_cd: Timer = $DashCD
 
 var dash_finished: bool = false
+
 func init() -> void:
 	dash_timer.wait_time = entity.stats.dash_length
 	dash_timer.timeout.connect(finished)
@@ -15,10 +17,11 @@ func _ready() -> void:
 #what happens when the player enters this state
 func Enter() -> void:
 	dash_finished = false
+	#dash_timer.wait_time += (entity.get_agility()/10)*0.1 
 	dash_timer.start()
 	#entity.body.update_animation("Dash")
 	entity.velocity.x = 0
-	entity.velocity.x = entity.stats.dash_speed * entity.direction
+	entity.velocity.x = entity.stats.dash_speed * entity.direction + entity.get_agility()*entity.direction
 	pass
 	
 #what happens when the player exits this state

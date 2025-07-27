@@ -17,7 +17,7 @@ func _ready() -> void:
 func Enter() -> void:
 	entity.shot_power = 0
 	Input.set_custom_mouse_cursor(load("res://PlayGround/Sprites/AimCursor32.png"))
-	entity.animation_player.speed_scale = GlobalPlayer.stats.pull_speed
+	entity.animation_player.speed_scale = GlobalPlayer.get_pull_speed()
 	finished_pulling = false
 	entity.animation_player.play("Pull")
 	pass
@@ -40,7 +40,7 @@ func Process(_delta: float) -> MainHandState:
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> MainHandState:
-	GlobalPlayer.shot_zoom(_delta*GlobalPlayer.stats.pull_speed, true,6,5)
+	GlobalPlayer.shot_zoom(_delta*GlobalPlayer.get_pull_speed(), true,6,5)
 	return null
 	
 #what happens during input events in this state

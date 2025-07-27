@@ -18,10 +18,12 @@ var direction: float
 var current_speed: float = 1
 var current_jumps: int = 0
 var gravity_applied: bool = true
+var shot_failed_flag: bool = false
 
 func _ready() -> void:
 	player_state_machine.Initialize(self)
 	off_hand.connect_hands(main_hand, off_hand_shoulder)
+	main_hand.connect_hands(off_hand)
 	jump_reset.body_entered.connect(reset_jumps) #change this to body_shape_entered when moving to tiles!!!!!!!!!!!!!!!
 	
 func _process(_delta: float) -> void:
@@ -29,7 +31,8 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	if not is_dash():
-		velocity.x = stats.move_speed * direction * current_speed
+		var speed = stats.move_speed + get_agility()
+		velocity.x = speed * direction * current_speed
 	if gravity_applied:
 		apply_gravity(delta)
 	move_and_slide()
@@ -47,17 +50,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		jump()
 		
 	if event.is_action_pressed("Shoot",true):
+		shot_failed_flag = false
 		shooting = true
-		off_hand.change_shooting()
-		main_hand.change_pulling()
+		change_pulling()
 		
 		await get_tree().create_timer(time_before_shot_zoom).timeout
 		if event.is_action("Shoot"):
 			zooming = true
 			
-	elif event.is_action_released("Shoot",true):
-		off_hand.change_shooting()
-		main_hand.change_pulling()
+	elif event.is_action_released("Shoot",true) and not shot_failed_flag:
+		change_pulling()
 		zooming = false
 		shoot()
 
@@ -71,13 +73,14 @@ func reset_jumps(_var1) -> void:
 	
 func jump() -> void:
 	if current_jumps > 0:
+		var total_jump_power = stats.jump_power + get_agility()
 		body.animation_player.play("Jump")
 		current_jumps -= 1
 		velocity.y = 0
 		var jump_shoot_handicap: float = 1
 		if shooting:
 			jump_shoot_handicap = 1.2
-		velocity.y -= stats.jump_power / jump_shoot_handicap
+		velocity.y -= total_jump_power / jump_shoot_handicap
 	
 func apply_gravity(_delta) -> void:
 	if velocity.y < 100:
@@ -125,3 +128,20 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 	if stats.current_hp <= 0:
 		print("dead")
 	pass
+
+func change_pulling() -> void:
+	off_hand.change_shooting()
+	main_hand.change_pulling()
+
+func shot_failed() -> void:
+	shot_failed_flag = true
+	shooting = false
+	
+func get_strength() -> int:
+	return stats.strength
+	
+func get_agility() -> int:
+	return stats.agility
+
+func get_pull_speed() -> float:
+	return stats.pull_speed + get_strength()*0.01

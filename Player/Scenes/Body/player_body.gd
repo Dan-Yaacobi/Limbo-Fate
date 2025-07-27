@@ -8,7 +8,6 @@ func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	
 	if GlobalPlayer.shooting:
 		eyes_sprite.frame = 1
 	else:

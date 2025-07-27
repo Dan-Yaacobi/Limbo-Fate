@@ -8,12 +8,12 @@ class_name PlayerMainHand extends CharacterBody2D
 
 @export var arrow: PackedScene
 @export var min_shot_power: float = 0.5
-@export var strength: float = 5
 
 var current_arrow: Arrow = null
 var hand_direction: Vector2
 var pulling: bool = false
 var shot_power: float
+var off_hand: PlayerOffHand
 
 func _ready() -> void:
 	main_hand_state_machine.Initialize(self)
@@ -26,7 +26,11 @@ func _process(_delta: float) -> void:
 	if GlobalPlayer.is_idle() and not GlobalPlayer.is_prev_jump():
 		calculate_direction_to_cursor()
 	pass
-	
+
+func connect_hands(_off_hand) -> void:
+	if _off_hand:
+		off_hand = _off_hand
+		
 func calculate_direction_to_cursor() -> void:
 	var mouse_pos = get_global_mouse_position()
 	var player_pos = global_position
@@ -63,11 +67,12 @@ func change_pulling() -> void:
 	if pulling:
 		draw_arrow()
 	else:
-		drop_arrow()
+		release_arrow()
 
-func drop_arrow() -> void:
-	if shot_power * GlobalPlayer.stats.pull_speed >= min_shot_power:
-		current_arrow.velocity = shot_power * hand_direction.normalized() * strength * GlobalPlayer.stats.pull_speed
+func release_arrow() -> void:
+	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
+		current_arrow.velocity = (shot_power * hand_direction.normalized()
+		 * GlobalPlayer.get_strength() + hand_direction.normalized()*GlobalPlayer.stats.basic_shot_power)
 		current_arrow.fired = true
 		current_arrow.reparent(current_arrow.get_parent().get_parent().get_parent().get_parent())
 		
