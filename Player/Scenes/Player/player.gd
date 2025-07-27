@@ -24,7 +24,7 @@ func _ready() -> void:
 	off_hand.connect_hands(main_hand, off_hand_shoulder)
 	jump_reset.body_entered.connect(reset_jumps) #change this to body_shape_entered when moving to tiles!!!!!!!!!!!!!!!
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	direction = Input.get_axis("Left","Right")
 	
 func _physics_process(delta: float) -> void:

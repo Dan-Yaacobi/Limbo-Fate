@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmvfwkbt4uxux"]
+
+[ext_resource type="Texture2D" uid="uid://bcsyn75smpetk" path="res://Enemies/Sprites/AppleWings.png" id="1_vlqwy"]
+[ext_resource type="Script" path="res://Enemies/Scripts/wings.gd" id="2_p8k68"]
+
+[node name="Wings" type="Sprite2D"]
+texture = ExtResource("1_vlqwy")
+vframes = 5
+script = ExtResource("2_p8k68")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

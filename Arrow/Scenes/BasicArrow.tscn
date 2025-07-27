@@ -1,7 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://db1mqmde5v1v3"]
+[gd_scene load_steps=7 format=3 uid="uid://db1mqmde5v1v3"]
 
 [ext_resource type="Script" path="res://Arrow/Scripts/arrow.gd" id="1_76fva"]
 [ext_resource type="Texture2D" uid="uid://bpt0rv4s6lijb" path="res://Arrow/Sprites/BasicArrow.png" id="2_5ubkl"]
+[ext_resource type="Script" path="res://Arrow/Resource/arrow_stats.gd" id="2_b5ddo"]
+[ext_resource type="PackedScene" uid="uid://ck8i7ukrq5afx" path="res://General Nodes/HurtBox/HurtBox.tscn" id="4_fkwwa"]
+
+[sub_resource type="Resource" id="Resource_48f1s"]
+script = ExtResource("2_b5ddo")
+base_dmg = 0
+dmg_modifier = 0
+air_resistance = 0.0
+weight = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2r34"]
 size = Vector2(7.5, 7.5)
@@ -10,15 +19,17 @@ size = Vector2(7.5, 7.5)
 rotation = 4.71239
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_76fva")
+stats = SubResource("Resource_48f1s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-12.5, 0)
 texture = ExtResource("2_5ubkl")
 flip_h = true
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HurtBox" parent="." instance=ExtResource("4_fkwwa")]
+collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-25, -7.10543e-15)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-25, 2.1398e-05)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_x2r34")
