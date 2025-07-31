@@ -9,20 +9,25 @@ enum directions{TOP_LEFT,TOP_RIGHT,BOTTOM_LEFT,BOTTOM_RIGHT}
 var current_direction: directions
 
 func _ready() -> void:
+	hit_box.Damaged.connect(_take_hit)
 	pass
 
 func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	velocity += calc_direction_to_player() * stats.move_speed
+	velocity += calc_direction_to_player() * stats.move_speed*delta
+	
+	move_and_slide()
 	
 func calc_direction_to_player() -> Vector2:
 	return (GlobalPlayer.global_position - global_position).normalized()
 
-func take_hit(dmg: int, kb_power: float = 0, kb_direction: Vector2 = Vector2.ZERO) -> void:
-	apply_dmg(dmg)
-	knocked_back(kb_power, kb_direction)
+func _take_hit(hurt_box: HurtBox) -> void:
+	
+	#apply_dmg(dmg)
+	#knocked_back(kb_power, kb_direction)
+	velocity = Vector2.ZERO
 	
 func dead() -> void:
 	pass

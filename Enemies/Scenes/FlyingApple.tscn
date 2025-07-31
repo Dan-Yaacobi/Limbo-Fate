@@ -1,17 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh3kllg16aal8"]
+[gd_scene load_steps=9 format=3 uid="uid://bh3kllg16aal8"]
 
 [ext_resource type="Script" path="res://Enemies/Scripts/enemy.gd" id="1_bvvqe"]
+[ext_resource type="Script" path="res://Enemies/Scripts/enemy_stats.gd" id="2_aen4r"]
 [ext_resource type="PackedScene" uid="uid://gx0ttrql3dsf" path="res://General Nodes/HitBox/Hitbox.tscn" id="2_hvkl6"]
 [ext_resource type="PackedScene" uid="uid://ck8i7ukrq5afx" path="res://General Nodes/HurtBox/HurtBox.tscn" id="3_8jpet"]
 [ext_resource type="Texture2D" uid="uid://i5yyh6mjh7nk" path="res://Enemies/Sprites/RedApple.png" id="4_xmjmu"]
 [ext_resource type="PackedScene" uid="uid://cmvfwkbt4uxux" path="res://Enemies/Scenes/Wings.tscn" id="5_o5muf"]
 
+[sub_resource type="Resource" id="Resource_h8e2j"]
+script = ExtResource("2_aen4r")
+max_hp = 0
+current_hp = 0
+touch_damage = 0
+move_speed = 10.0
+max_speed = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfnfg"]
+radius = 7.0
+
 [node name="FlyingApple" type="CharacterBody2D"]
 script = ExtResource("1_bvvqe")
+stats = SubResource("Resource_h8e2j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Hitbox" parent="." instance=ExtResource("2_hvkl6")]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+z_index = 1
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_qfnfg")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_8jpet")]
 

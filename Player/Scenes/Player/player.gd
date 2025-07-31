@@ -38,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func shot_zoom(speed: float ,zoom_in: bool,max_zoom: float, min_zoom: float) -> void:
+	return
 	if zoom_in:
 		if camera_2d.zoom.x < max_zoom:
 			camera_2d.zoom += Vector2(speed,speed)

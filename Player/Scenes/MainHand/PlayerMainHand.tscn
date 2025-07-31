@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://7vjvk5bghwkq"]
+[gd_scene load_steps=14 format=3 uid="uid://7vjvk5bghwkq"]
 
 [ext_resource type="Script" path="res://Player/Scenes/MainHand/player_main_hand.gd" id="1_grn42"]
 [ext_resource type="Texture2D" uid="uid://x2ybpkt3kmnk" path="res://Player/Sprites/PlayerHandSprite.png" id="2_075al"]
@@ -143,9 +143,14 @@ _data = {
 "RESET": SubResource("Animation_25jve")
 }
 
+[sub_resource type="Curve" id="Curve_sgu6n"]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="PlayerMainHand" type="CharacterBody2D"]
 script = ExtResource("1_grn42")
 arrow = ExtResource("2_djcly")
+max_offset = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
@@ -182,3 +187,22 @@ script = ExtResource("6_i2jfe")
 
 [node name="TiredTimer" type="Timer" parent="MainHandStateMachine/MaxPull"]
 wait_time = 3.0
+
+[node name="PerfectAimParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 5)
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 100
+lifetime = 0.7
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+emission_shape = 5
+emission_points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+emission_normals = PackedVector2Array(0, 1, -1, 0, 0, -1, 1, 0)
+emission_colors = PackedColorArray()
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+scale_amount_curve = SubResource("Curve_sgu6n")

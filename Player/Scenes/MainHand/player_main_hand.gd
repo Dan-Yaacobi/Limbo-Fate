@@ -8,12 +8,14 @@ class_name PlayerMainHand extends CharacterBody2D
 
 @export var arrow: PackedScene
 @export var min_shot_power: float = 0.5
+@export var max_offset: float
 
 var current_arrow: Arrow = null
 var hand_direction: Vector2
 var pulling: bool = false
 var shot_power: float
 var off_hand: PlayerOffHand
+var shot_offset: float = 0
 
 func _ready() -> void:
 	main_hand_state_machine.Initialize(self)
@@ -67,15 +69,30 @@ func change_pulling() -> void:
 	if pulling:
 		draw_arrow()
 	else:
+		set_offset(max_pull_state.hold_time)
 		release_arrow()
 
 func release_arrow() -> void:
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
-		current_arrow.velocity = (shot_power * hand_direction.normalized()
-		 * GlobalPlayer.get_strength() + hand_direction.normalized()*GlobalPlayer.stats.basic_shot_power)
+		var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
+		current_arrow.velocity = (shot_power * direction
+		 * GlobalPlayer.get_strength() + direction * GlobalPlayer.stats.basic_shot_power) 
+		
 		current_arrow.fired = true
 		current_arrow.reparent(current_arrow.get_parent().get_parent().get_parent().get_parent())
 		
 	else:
 		current_arrow.free()
 	current_arrow = null
+
+func set_offset(amount: float) -> void:
+	shot_offset = amount * 5
+	
+func calc_offset_direction(og_direction: Vector2, offset: float) -> Vector2:
+	var res: Vector2
+	var rand_dir: int = [1,-1].pick_random()
+	if abs(og_direction.x) > abs(og_direction.y):
+		res = Vector2(og_direction.x, og_direction.y + rand_dir * offset)
+	else:
+		res = Vector2(og_direction.x + rand_dir * offset, og_direction.y)
+	return res

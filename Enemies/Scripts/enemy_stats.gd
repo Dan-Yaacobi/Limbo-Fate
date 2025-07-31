@@ -8,3 +8,4 @@ class_name EnemyStats extends Resource
 
 @export_category("Movement")
 @export var move_speed: float
+@export var max_speed: float
