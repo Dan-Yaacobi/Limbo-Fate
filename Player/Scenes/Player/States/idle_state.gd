@@ -34,5 +34,3 @@ func Physics(_delta: float) -> PlayerState:
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> PlayerState:
 	return null
-	
-	
