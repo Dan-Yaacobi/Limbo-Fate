@@ -11,7 +11,7 @@ class_name Player extends CharacterBody2D
 @export var stats: PlayerStats
 
 var zooming: bool
-var direction_side: bool = false
+var direction_side: bool = false # right = false, left = true
 var time_before_shot_zoom: float = 0.5
 var shooting: bool = false
 var direction: float
