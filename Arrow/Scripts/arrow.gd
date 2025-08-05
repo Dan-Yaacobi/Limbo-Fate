@@ -1,11 +1,13 @@
 class_name Arrow extends CharacterBody2D
 
+@onready var hurt_box: HurtBox = $HurtBox
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @export var stats: ArrowStats
 
 var fired: bool = false
 
 func _ready() -> void:
+	hurt_box.monitoring = false
 	pass
 
 func _process(_delta: float) -> void:
@@ -34,3 +36,6 @@ func hit_target(_target) -> void:
 func rotate_arrow(angle: float) -> void:
 	rotation = angle
 	pass
+
+func arrow_shot() -> void:
+	hurt_box.monitoring = true

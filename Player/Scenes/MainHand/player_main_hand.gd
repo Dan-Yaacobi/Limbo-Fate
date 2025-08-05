@@ -79,6 +79,7 @@ func release_arrow() -> void:
 		 * GlobalPlayer.get_strength() + direction * GlobalPlayer.stats.basic_shot_power) 
 		
 		current_arrow.fired = true
+		current_arrow.arrow_shot()
 		current_arrow.reparent(current_arrow.get_parent().get_parent().get_parent().get_parent())
 		
 	else:

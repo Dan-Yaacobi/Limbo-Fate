@@ -12,4 +12,6 @@ func _process(delta: float) -> void:
 func AreaEnetered( a : Area2D) -> void:
 	if a is HitBox:
 		a.TakeDamage(self)
+		if get_parent() is Arrow:
+			get_parent().queue_free()
 	pass
