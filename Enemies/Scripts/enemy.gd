@@ -10,6 +10,7 @@ var current_direction: directions
 
 func _ready() -> void:
 	hit_box.Damaged.connect(_take_hit)
+	stats.current_hp = stats.max_hp
 	pass
 
 func _process(_delta: float) -> void:
@@ -23,14 +24,15 @@ func _physics_process(delta: float) -> void:
 func calc_direction_to_player() -> Vector2:
 	return (GlobalPlayer.global_position - global_position).normalized()
 
-func _take_hit(hurt_box: HurtBox) -> void:
+func _take_hit(_hurt_box: HurtBox) -> void:
 	
 	#apply_dmg(dmg)
 	#knocked_back(kb_power, kb_direction)
-	apply_dmg(hurt_box.damage)
+	apply_dmg(_hurt_box.damage)
 	velocity = Vector2.ZERO
 	
 func dead() -> void:
+	queue_free()
 	pass
 	
 func apply_dmg(dmg: int) -> void:

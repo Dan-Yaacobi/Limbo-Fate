@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_h8e2j"]
 script = ExtResource("2_aen4r")
-max_hp = 0
+max_hp = 20
 current_hp = 0
 touch_damage = 0
 move_speed = 10.0

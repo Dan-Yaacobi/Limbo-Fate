@@ -39,12 +39,12 @@ func _physics_process(delta: float) -> void:
 	
 func shot_zoom(speed: float ,zoom_in: bool,max_zoom: float, min_zoom: float) -> void:
 	return
-	if zoom_in:
-		if camera_2d.zoom.x < max_zoom:
-			camera_2d.zoom += Vector2(speed,speed)
-	else:
-		if camera_2d.zoom.x > min_zoom:
-			camera_2d.zoom -= Vector2(speed*5,speed*5)
+	#if zoom_in:
+		#if camera_2d.zoom.x < max_zoom:
+			#camera_2d.zoom += Vector2(speed,speed)
+	#else:
+		#if camera_2d.zoom.x > min_zoom:
+			#camera_2d.zoom -= Vector2(speed*5,speed*5)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Jump",true):

@@ -39,7 +39,7 @@ func arrow_shot() -> void:
 	hurt_box.monitoring = true
 	
 func calc_dmg() -> void:
-	hurt_box.damage = (GlobalPlayer.get_strength() + stats.base_dmg) * pow(stats.dmg_modifier,3)
+	hurt_box.damage = floor((GlobalPlayer.get_strength() + stats.base_dmg) * pow(stats.dmg_modifier,3))
 
 func set_dmg_modifier(_dmg_mod) -> void:
 	stats.dmg_modifier = _dmg_mod
