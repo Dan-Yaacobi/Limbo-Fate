@@ -9,7 +9,6 @@ var hold_time: float = 0
 
 signal max_pull
 
-
 # store a refernece to the player this belongs to
 func init() -> void:
 	pass
@@ -32,7 +31,7 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> MainHandState:
-	hold_time += _delta
+	hold_time += _delta * 3
 	if !entity.pulling:
 		return idle
 	return null

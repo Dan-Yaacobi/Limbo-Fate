@@ -1,6 +1,6 @@
 class_name ArrowStats extends Resource
 
-@export var base_dmg: int
-@export var dmg_modifier : int
+@export var base_dmg: float = 1
+@export var dmg_modifier : float
 @export var air_resistance: float
 @export var weight: float

@@ -30,12 +30,16 @@ func apply_friction(_delta) -> void:
 		velocity -= velocity*_delta*stats.weight
 	pass
 
-func hit_target(_target) -> void:
-	pass
-
 func rotate_arrow(angle: float) -> void:
 	rotation = angle
 	pass
 
 func arrow_shot() -> void:
+	calc_dmg()
 	hurt_box.monitoring = true
+	
+func calc_dmg() -> void:
+	hurt_box.damage = (GlobalPlayer.get_strength() + stats.base_dmg) * pow(stats.dmg_modifier,3)
+
+func set_dmg_modifier(_dmg_mod) -> void:
+	stats.dmg_modifier = _dmg_mod

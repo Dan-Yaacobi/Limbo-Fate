@@ -27,6 +27,7 @@ func _take_hit(hurt_box: HurtBox) -> void:
 	
 	#apply_dmg(dmg)
 	#knocked_back(kb_power, kb_direction)
+	apply_dmg(hurt_box.damage)
 	velocity = Vector2.ZERO
 	
 func dead() -> void:

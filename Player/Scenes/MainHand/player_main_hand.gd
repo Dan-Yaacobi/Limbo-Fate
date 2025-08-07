@@ -75,19 +75,21 @@ func change_pulling() -> void:
 func release_arrow() -> void:
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
 		var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
-		current_arrow.velocity = (calc_shot_power(shot_power) * direction
-		 * GlobalPlayer.get_strength() + direction * GlobalPlayer.stats.basic_shot_power) 
+		
+		current_arrow.velocity = calc_shot_velocity(shot_power,direction)
 		
 		current_arrow.fired = true
+		current_arrow.set_dmg_modifier(shot_power)
 		current_arrow.arrow_shot()
-		current_arrow.reparent(current_arrow.get_parent().get_parent().get_parent().get_parent())
-		
+		current_arrow.reparent(get_tree().root)
+
 	else:
 		current_arrow.free()
 	current_arrow = null
 
-func calc_shot_power(_shot_power) -> float:
-	return (_shot_power - 0.5)*4
+func calc_shot_velocity(_shot_power,direction) -> Vector2:
+	return _shot_power * direction * GlobalPlayer.get_strength_shot_modifier()
+
 
 func set_offset(amount: float) -> void:
 	shot_offset = amount * 5

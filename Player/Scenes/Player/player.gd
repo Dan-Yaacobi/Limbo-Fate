@@ -83,36 +83,16 @@ func jump() -> void:
 			jump_shoot_handicap = 1.2
 		velocity.y -= total_jump_power / jump_shoot_handicap
 	
-func apply_gravity(_delta) -> void:
-	if velocity.y < 100:
-		velocity.y += _delta*stats.gravity
-		
-func update_direction(_new_side: bool) -> void:
 
+func update_direction(_new_side: bool) -> void:
 	if _new_side != direction_side:
 		direction_side = _new_side
 		body.change_direction(_new_side)
 		main_hand.change_direction()
 		off_hand_shoulder.position.x *= -1
 		off_hand.position = off_hand_shoulder.position
+		
 
-func player_state() -> PlayerState:
-	return player_state_machine.curr_state
-
-func is_idle() -> bool:
-	return player_state_machine.curr_state is IdleState
-	
-func is_prev_jump() -> bool:
-	return player_state_machine.prev_state is AirState
-
-func is_dash() -> bool:
-	return player_state_machine.curr_state is DashState
-
-func gravity_off() -> void:
-	gravity_applied = false
-
-func gravity_on() -> void:
-	gravity_applied = true
 	
 func apply_knockback(base_force: Vector2) -> void:
 	main_hand.pulling = false
@@ -137,7 +117,32 @@ func change_pulling() -> void:
 func shot_failed() -> void:
 	shot_failed_flag = true
 	shooting = false
+
+
+### GRAVITY METHODS ###
+func apply_gravity(_delta) -> void:
+	if velocity.y < 100:
+		velocity.y += _delta*stats.gravity
+
+func gravity_off() -> void:
+	gravity_applied = false
+
+func gravity_on() -> void:
+	gravity_applied = true
+
+
+### IS METHODS ###
+func is_idle() -> bool:
+	return player_state_machine.curr_state is IdleState
 	
+func is_prev_jump() -> bool:
+	return player_state_machine.prev_state is AirState
+
+func is_dash() -> bool:
+	return player_state_machine.curr_state is DashState
+
+
+### GET METHODS ###
 func get_strength() -> int:
 	return stats.strength
 	
@@ -146,3 +151,6 @@ func get_agility() -> int:
 
 func get_pull_speed() -> float:
 	return stats.pull_speed + get_strength()*0.01
+
+func get_strength_shot_modifier() -> float:
+	return get_strength() * 5 + stats.basic_shot_power

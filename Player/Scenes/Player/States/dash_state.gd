@@ -21,7 +21,7 @@ func Enter() -> void:
 	dash_timer.start()
 	#entity.body.update_animation("Dash")
 	entity.velocity.x = 0
-	entity.velocity.x = entity.stats.dash_speed * entity.direction + entity.get_agility()*entity.direction
+	entity.velocity.x = (entity.stats.dash_speed + entity.get_agility()) * entity.direction
 	pass
 	
 #what happens when the player exits this state
