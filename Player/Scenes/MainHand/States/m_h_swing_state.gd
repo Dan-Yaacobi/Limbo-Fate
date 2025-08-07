@@ -1,9 +1,10 @@
-class_name IdleMainHandState extends MainHandState
-@onready var pulling: PullingMainHandState = $"../Pulling"
-@onready var swing: SwingMainHandState = $"../Swing"
+class_name SwingMainHandState extends MainHandState
+@onready var idle: IdleMainHandState = $"../Idle"
 
+var finished: bool = false
 # store a refernece to the player this belongs to
 func init() -> void:
+	entity.animation_player.animation_finished.connect(swing_done)
 	pass
 	
 func _ready() -> void:
@@ -11,11 +12,10 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	Input.set_custom_mouse_cursor(null)
-	entity.rotation = 0
-	#entity.animation_player.stop()
-	entity.animation_player.play("Idle")
-	GlobalPlayer.current_speed = 1
+	finished = false
+	entity.set_swing_direction(GlobalPlayer.direction_side)
+	entity.animation_player.play("Swing")
+	
 	pass
 	
 #what happens when the player exits this state
@@ -24,20 +24,19 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> MainHandState:
+	if finished:
+		return idle
+	#await get_tree().create_timer(entity.animation_player.get_animation("Swing").length).timeout
+	#return idle
 	return null
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> MainHandState:
-	GlobalPlayer.shot_zoom(_delta*3, false,6,5)
 	return null
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> MainHandState:
-	if _event.is_action_pressed("Swing"):
-		state_machine.ChangeState(swing)
-		
-	if _event.is_action_pressed("Shoot"):
-		state_machine.ChangeState(pulling)
 	return null
-	
-	
+
+func swing_done(_anim) -> void:
+	finished = true

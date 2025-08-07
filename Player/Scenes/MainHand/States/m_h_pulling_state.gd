@@ -48,6 +48,8 @@ func Physics(_delta: float) -> MainHandState:
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> MainHandState:
+	#if _event.is_action_released("Shoot",true):
+		#return idle
 	return null
 	
 func finished(_animation_name) -> void:

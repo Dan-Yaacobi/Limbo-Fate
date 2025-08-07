@@ -5,6 +5,7 @@ class_name PlayerMainHand extends CharacterBody2D
 @onready var main_hand_state_machine: Node2D = $MainHandStateMachine
 @onready var max_pull_state: MaxPullMainHandState = $MainHandStateMachine/MaxPull
 @onready var arrow_position: Node2D = $ArrowPosition
+@onready var sprite: Sprite2D = $Sprite2D
 
 @export var arrow: PackedScene
 @export var min_shot_power: float = 0.5
@@ -43,6 +44,14 @@ func calculate_direction_to_cursor() -> void:
 		GlobalPlayer.update_direction(false)
 	elif mouse_pos.x < player_pos.x - 4:
 		GlobalPlayer.update_direction(true)
+
+func set_swing_direction(_side: bool) -> void:
+	if _side:
+		if scale.x > 0:
+			scale.x *= -1
+	else:
+		if scale.x < 0:
+			scale.x *= -1
 
 func draw_arrow() -> void:
 	if !current_arrow:

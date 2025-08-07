@@ -54,15 +54,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		shot_failed_flag = false
 		shooting = true
 		change_pulling()
-		
-		await get_tree().create_timer(time_before_shot_zoom).timeout
-		if event.is_action("Shoot"):
-			zooming = true
+		#
+		#await get_tree().create_timer(time_before_shot_zoom).timeout
+		#if event.is_action("Shoot"):
+			#zooming = true
 			
 	elif event.is_action_released("Shoot",true) and not shot_failed_flag:
 		change_pulling()
-		zooming = false
+		#zooming = false
 		shoot()
+		
+func swing() -> void:
+	pass
 
 func shoot() -> void:
 	shooting = false
@@ -91,8 +94,6 @@ func update_direction(_new_side: bool) -> void:
 		main_hand.change_direction()
 		off_hand_shoulder.position.x *= -1
 		off_hand.position = off_hand_shoulder.position
-		
-
 	
 func apply_knockback(base_force: Vector2) -> void:
 	main_hand.pulling = false
@@ -113,11 +114,6 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 func change_pulling() -> void:
 	off_hand.change_shooting()
 	main_hand.change_pulling()
-
-func shot_failed() -> void:
-	shot_failed_flag = true
-	shooting = false
-
 
 ### GRAVITY METHODS ###
 func apply_gravity(_delta) -> void:
