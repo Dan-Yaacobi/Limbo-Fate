@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://db1mqmde5v1v3"]
+[gd_scene load_steps=9 format=3 uid="uid://db1mqmde5v1v3"]
 
 [ext_resource type="Script" path="res://Arrow/Scripts/arrow.gd" id="1_76fva"]
 [ext_resource type="Texture2D" uid="uid://bpt0rv4s6lijb" path="res://Arrow/Sprites/BasicArrow.png" id="2_5ubkl"]
@@ -8,12 +8,19 @@
 [sub_resource type="Resource" id="Resource_48f1s"]
 script = ExtResource("2_b5ddo")
 base_dmg = 1.0
-dmg_modifier = 0.0
+dmg_modifier = 0
 air_resistance = 0.0
 weight = 30.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2r34"]
 size = Vector2(7.5, 7.5)
+
+[sub_resource type="Curve" id="Curve_2nfns"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_w6qdr"]
+colors = PackedColorArray(1, 1, 1, 0.682353, 1, 1, 1, 0)
 
 [node name="BasicArrow" type="CharacterBody2D"]
 rotation = 4.71239
@@ -32,3 +39,14 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-25, 2.1398e-05)
 shape = SubResource("RectangleShape2D_x2r34")
+
+[node name="TrailParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 3
+lifetime = 0.5
+emission_shape = 4
+emission_points = PackedVector2Array(0, -1, 3, -4, 2, 4)
+emission_colors = PackedColorArray()
+gravity = Vector2(0, -10)
+scale_amount_curve = SubResource("Curve_2nfns")
+color_ramp = SubResource("Gradient_w6qdr")

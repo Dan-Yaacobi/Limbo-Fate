@@ -17,7 +17,8 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	
+	entity.draw_arrow()
+	GlobalPlayer.shooting = true
 	entity.shot_power = 0
 	Input.set_custom_mouse_cursor(load("res://PlayGround/Sprites/AimCursor32.png"))
 	entity.animation_player.speed_scale = GlobalPlayer.get_pull_speed()
@@ -34,11 +35,11 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> MainHandState:
+	entity.arrow_setup()
+	
 	entity.shot_power = Time.get_unix_time_from_system() - pull_start_time
 	if GlobalPlayer.current_speed > GlobalPlayer.stats.min_move_shoot_spd:
 		GlobalPlayer.current_speed -= _delta/2
-	if !entity.pulling:
-		return idle
 	return null
 	
 #what happens during _physics_process update in this state
@@ -48,8 +49,12 @@ func Physics(_delta: float) -> MainHandState:
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> MainHandState:
-	#if _event.is_action_released("Shoot",true):
-		#return idle
+	if _event.is_action_released("Shoot",true):
+		GlobalPlayer.set_shooting(true)
+		entity.set_offset(0)
+		entity.release_arrow()
+		GlobalPlayer.shooting = false
+		return idle
 	return null
 	
 func finished(_animation_name) -> void:

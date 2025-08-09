@@ -23,8 +23,6 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> OffHandState:
-	if entity.shooting:
-		return shooting
 	return null
 	
 #what happens during _physics_process update in this state
@@ -33,6 +31,8 @@ func Physics(_delta: float) -> OffHandState:
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> OffHandState:
+	if _event.is_action_pressed("Shoot",true) and not entity.main_hand.is_swinging():
+		return shooting
 	return null
 	
 	

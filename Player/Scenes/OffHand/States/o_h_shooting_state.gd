@@ -23,8 +23,6 @@ func Exit() -> void:
 func Process(_delta: float) -> OffHandState:
 	entity.rotation = entity.main_hand.rotation
 	entity.global_position = entity.main_hand.where_to_hold_string()
-	if !entity.shooting:
-		return idle
 	return null
 	
 #what happens during _physics_process update in this state
@@ -33,6 +31,8 @@ func Physics(_delta: float) -> OffHandState:
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> OffHandState:
+	if _event.is_action_released("Shoot",true):
+		return idle
 	return null
 	
 	

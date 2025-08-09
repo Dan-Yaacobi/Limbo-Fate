@@ -13,12 +13,12 @@ class_name Player extends CharacterBody2D
 var zooming: bool
 var direction_side: bool = false # right = false, left = true
 var time_before_shot_zoom: float = 0.5
-var shooting: bool = false
 var direction: float
 var current_speed: float = 1
 var current_jumps: int = 0
 var gravity_applied: bool = true
-var shot_failed_flag: bool = false
+
+var shooting: bool = false
 
 func _ready() -> void:
 	player_state_machine.Initialize(self)
@@ -49,43 +49,10 @@ func shot_zoom(speed: float ,zoom_in: bool,max_zoom: float, min_zoom: float) -> 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Jump",true):
 		jump()
-		
-	if event.is_action_pressed("Shoot",true):
-		shot_failed_flag = false
-		shooting = true
-		change_pulling()
-		#
-		#await get_tree().create_timer(time_before_shot_zoom).timeout
-		#if event.is_action("Shoot"):
-			#zooming = true
-			
-	elif event.is_action_released("Shoot",true) and not shot_failed_flag:
-		change_pulling()
-		#zooming = false
-		shoot()
-		
+
 func swing() -> void:
 	pass
 
-func shoot() -> void:
-	shooting = false
-	pass
-
-func reset_jumps(_var1) -> void:
-	current_jumps = stats.total_jumps
-	body.animation_player.play("Idle")
-	
-func jump() -> void:
-	if current_jumps > 0:
-		var total_jump_power = stats.jump_power + get_agility()
-		body.animation_player.play("Jump")
-		current_jumps -= 1
-		velocity.y = 0
-		var jump_shoot_handicap: float = 1
-		if shooting:
-			jump_shoot_handicap = 1.2
-		velocity.y -= total_jump_power / jump_shoot_handicap
-	
 
 func update_direction(_new_side: bool) -> void:
 	if _new_side != direction_side:
@@ -111,11 +78,27 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 		print("dead")
 	pass
 
-func change_pulling() -> void:
-	off_hand.change_shooting()
-	main_hand.change_pulling()
 
-### GRAVITY METHODS ###
+############# JUMP METHODS #############
+func reset_jumps(_var1) -> void:
+	current_jumps = stats.total_jumps
+	body.animation_player.play("Idle")
+	
+func jump() -> void:
+	if current_jumps > 0:
+		var total_jump_power = stats.jump_power + get_agility()
+		body.animation_player.play("Jump")
+		current_jumps -= 1
+		velocity.y = 0
+		velocity.y -= total_jump_power / jump_handicap()
+
+func jump_handicap() -> float:
+	if shooting:
+		return 1.2
+	return 1
+
+
+############# GRAVITY METHODS #############
 func apply_gravity(_delta) -> void:
 	if velocity.y < 100:
 		velocity.y += _delta*stats.gravity
@@ -127,7 +110,7 @@ func gravity_on() -> void:
 	gravity_applied = true
 
 
-### IS METHODS ###
+############# IS METHODS #############
 func is_idle() -> bool:
 	return player_state_machine.curr_state is IdleState
 	
@@ -138,7 +121,7 @@ func is_dash() -> bool:
 	return player_state_machine.curr_state is DashState
 
 
-### GET METHODS ###
+############# GET METHODS #############
 func get_strength() -> int:
 	return stats.strength
 	
@@ -150,3 +133,8 @@ func get_pull_speed() -> float:
 
 func get_strength_shot_modifier() -> float:
 	return get_strength() * 5 + stats.basic_shot_power
+
+
+############# SET METHODS #############
+func set_shooting(_val: bool) -> void:
+	shooting = _val

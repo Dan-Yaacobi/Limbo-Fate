@@ -18,7 +18,8 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity += calc_direction_to_player() * stats.move_speed*delta
-	
+	if change_direction():
+		velocity = Vector2.ZERO
 	move_and_slide()
 	
 func calc_direction_to_player() -> Vector2:
@@ -60,7 +61,7 @@ func change_direction() -> bool:
 
 	var new_direction = null
 
-	var is_right = global_position.x > GlobalPlayer.layer.global_position.x
+	var is_right = global_position.x > GlobalPlayer.global_position.x
 	var is_above = global_position.y < GlobalPlayer.global_position.y
 
 	if is_right:

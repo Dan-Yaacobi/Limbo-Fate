@@ -27,13 +27,14 @@ func Enter() -> void:
 	
 #what happens when the player exits this state
 func Exit() -> void:
+	entity.set_offset(hold_time)
+	entity.release_arrow()
 	hold_time = 0
-	
+	GlobalPlayer.shooting = false
 #what happens during process update in this state
 func Process(_delta: float) -> MainHandState:
+	entity.arrow_setup()
 	hold_time += _delta * 3
-	if !entity.pulling:
-		return idle
 	return null
 	
 #what happens during _physics_process update in this state
@@ -42,4 +43,6 @@ func Physics(_delta: float) -> MainHandState:
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> MainHandState:
+	if _event.is_action_released("Shoot",true):
+		return idle
 	return null

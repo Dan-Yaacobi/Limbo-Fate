@@ -2,10 +2,11 @@ class_name PlayerMainHand extends CharacterBody2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hold_position: Node2D = $HoldPosition
-@onready var main_hand_state_machine: Node2D = $MainHandStateMachine
+@onready var main_hand_state_machine: MainHandStateMachine = $MainHandStateMachine
 @onready var max_pull_state: MaxPullMainHandState = $MainHandStateMachine/MaxPull
 @onready var arrow_position: Node2D = $ArrowPosition
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var swing_cooldown: Timer = $MainHandStateMachine/SwingCooldown
 
 @export var arrow: PackedScene
 @export var min_shot_power: float = 0.5
@@ -17,15 +18,14 @@ var pulling: bool = false
 var shot_power: float
 var off_hand: PlayerOffHand
 var shot_offset: float = 0
+var can_swing: bool = true
 
 func _ready() -> void:
 	main_hand_state_machine.Initialize(self)
+	swing_cooldown.timeout.connect(swing_off_cooldown)
 	pass
 	
 func _process(_delta: float) -> void:
-	if pulling:
-		calculate_direction_to_cursor()
-		set_hand_direction()
 	if GlobalPlayer.is_idle() and not GlobalPlayer.is_prev_jump():
 		calculate_direction_to_cursor()
 	pass
@@ -53,6 +53,10 @@ func set_swing_direction(_side: bool) -> void:
 		if scale.x < 0:
 			scale.x *= -1
 
+func arrow_setup() -> void:
+	calculate_direction_to_cursor()
+	set_hand_direction()
+	
 func draw_arrow() -> void:
 	if !current_arrow:
 		var new_arrow: Arrow = arrow.instantiate()
@@ -75,13 +79,14 @@ func change_direction() -> void:
 
 func change_pulling() -> void:
 	pulling = not pulling
-	if pulling:
-		draw_arrow()
-	else:
-		set_offset(max_pull_state.hold_time)
-		release_arrow()
+	#if pulling:
+		#draw_arrow()
+	#else:
+		#set_offset(max_pull_state.hold_time)
+		#release_arrow()
 
 func release_arrow() -> void:
+	GlobalPlayer.set_shooting(false)
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
 		var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
 		
@@ -95,10 +100,9 @@ func release_arrow() -> void:
 	else:
 		current_arrow.free()
 	current_arrow = null
-
+	
 func calc_shot_velocity(_shot_power,direction) -> Vector2:
 	return _shot_power * direction * GlobalPlayer.get_strength_shot_modifier()
-
 
 func set_offset(amount: float) -> void:
 	shot_offset = amount * 5
@@ -111,3 +115,9 @@ func calc_offset_direction(og_direction: Vector2, offset: float) -> Vector2:
 	else:
 		res = Vector2(og_direction.x + rand_dir * offset, og_direction.y)
 	return res
+
+func swing_off_cooldown() -> void:
+	can_swing = true
+	
+func is_swinging() -> bool:
+	return main_hand_state_machine.curr_state is SwingMainHandState

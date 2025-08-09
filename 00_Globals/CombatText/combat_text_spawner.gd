@@ -7,4 +7,4 @@ func spawn(_pos: Vector2, _text: String) -> void:
 	get_tree().root.add_child(combat_text)
 	combat_text.text = _text
 	combat_text.start()
-	combat_text.set_position(_pos + Vector2(0,-20))
+	combat_text.set_position(_pos + Vector2(randi_range(-10,10),-20))
