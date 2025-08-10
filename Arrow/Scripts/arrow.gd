@@ -48,10 +48,12 @@ func calc_dmg() -> void:
 func set_dmg_modifier(_dmg_mod) -> void:
 	stats.dmg_modifier = _dmg_mod
 
-func set_ability(ability: ArrowAbility) -> void:
-	if ability:
-		stats.ability = ability
+func set_ability(abilities: Array[ArrowAbility]) -> void:
+	if abilities:
+		stats.abilities = abilities
 		
 func apply_ability(_enemy: Enemy) -> void:
-	if stats.ability and _enemy:
-		stats.ability.activate_ability(_enemy)
+	if stats.abilities and _enemy:
+		for ability in stats.abilities:
+			if ability:
+				ability.activate_ability(_enemy)

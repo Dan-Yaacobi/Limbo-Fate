@@ -1,15 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://db1mqmde5v1v3"]
+[gd_scene load_steps=10 format=3 uid="uid://db1mqmde5v1v3"]
 
 [ext_resource type="Script" path="res://Arrow/Scripts/arrow.gd" id="1_76fva"]
+[ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_5rq77"]
 [ext_resource type="Texture2D" uid="uid://bpt0rv4s6lijb" path="res://Arrow/Sprites/BasicArrow.png" id="2_5ubkl"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_stats.gd" id="2_b5ddo"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Freeze/freeze.gd" id="2_h26um"]
 [ext_resource type="PackedScene" uid="uid://ck8i7ukrq5afx" path="res://General Nodes/HurtBox/HurtBox.tscn" id="4_fkwwa"]
-
-[sub_resource type="Resource" id="Resource_m1ph5"]
-script = ExtResource("2_h26um")
-required_perfect_shots = 3
-freeze_duration = 3.0
 
 [sub_resource type="Resource" id="Resource_48f1s"]
 script = ExtResource("2_b5ddo")
@@ -17,7 +12,7 @@ base_dmg = 1.0
 dmg_modifier = 0.0
 air_resistance = 0.0
 weight = 30.0
-ability = SubResource("Resource_m1ph5")
+abilities = Array[ExtResource("2_5rq77")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2r34"]
 size = Vector2(7.5, 7.5)

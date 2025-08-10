@@ -20,6 +20,8 @@ var off_hand: PlayerOffHand
 var shot_offset: float = 0
 var can_swing: bool = true
 
+var dont_count_next_perfect: bool = false
+
 func _ready() -> void:
 	main_hand_state_machine.Initialize(self)
 	swing_cooldown.timeout.connect(swing_off_cooldown)
@@ -77,27 +79,36 @@ func where_to_hold_arrow() -> Vector2:
 func change_direction() -> void:
 	position.x *= - 1
 
-
 func release_arrow() -> void:
 	GlobalPlayer.set_shooting(false)
+	for shoot_ability in GlobalPlayer.get_shoot_abilities():
+		if shoot_ability:
+			shoot_ability.activate_ability()
+	
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
 		## if shot power is 1: max pull, if shot_offset = 0: released within perfect shot window
-		GlobalPlayer.set_perfect_shots(shot_power == 1 and shot_offset == 0)
-		
-		var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
-		
-		current_arrow.velocity = calc_shot_velocity(shot_power,direction)
-		
-		current_arrow.fired = true
-		current_arrow.set_dmg_modifier(shot_power)
-		current_arrow.arrow_shot()
-		current_arrow.reparent(get_tree().root)
-		current_arrow.set_ability(GlobalPlayer.get_arrow_ability())
-		
+		GlobalPlayer.set_perfect_shots(shot_power == 1 and shot_offset == 0 and not dont_count_next_perfect)
+		print(GlobalPlayer.get_perfect_shots_amount())
+		fire_arrow()
+
 	else:
 		current_arrow.free()
 	current_arrow = null
+
+func fire_arrow() -> void:
+	var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
 	
+	current_arrow.velocity = calc_shot_velocity(shot_power,direction)
+	
+	current_arrow.fired = true
+	current_arrow.set_dmg_modifier(shot_power)
+	current_arrow.arrow_shot()
+	current_arrow.reparent(get_tree().root)
+	current_arrow.set_ability(GlobalPlayer.get_arrow_ability())
+	
+	if dont_count_next_perfect:
+		dont_count_next_perfect = false
+		
 func calc_shot_velocity(_shot_power,direction) -> Vector2:
 	return _shot_power * direction * GlobalPlayer.get_strength_shot_modifier()
 
@@ -122,3 +133,9 @@ func is_swinging() -> bool:
 func set_time_for_perfect_shot(amount: float) -> void:
 	if amount > 0:
 		max_pull_state.perfect_shot_time = amount
+
+func make_next_shot_perfect() -> void:
+	if not dont_count_next_perfect:
+		shot_power = 1
+		shot_offset = 0
+		dont_count_next_perfect = true

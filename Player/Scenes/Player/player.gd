@@ -98,6 +98,8 @@ func jump_handicap() -> float:
 		return 1.2
 	return 1
 
+func make_next_shot_perfect() -> void:
+	main_hand.make_next_shot_perfect()
 
 ############# GRAVITY METHODS #############
 func apply_gravity(_delta) -> void:
@@ -135,11 +137,14 @@ func get_pull_speed() -> float:
 func get_strength_shot_modifier() -> float:
 	return get_strength() * 5 + stats.basic_shot_power
 
-func get_arrow_ability() -> ArrowAbility:
-	return stats.arrow_ability
+func get_arrow_ability() -> Array[ArrowAbility]:
+	return stats.arrow_abilities
 
 func get_perfect_shots_amount() -> int:
 	return perfect_shot_counter
+	
+func get_shoot_abilities() -> Array[PlayerOnShootAbility]:
+	return stats.shoot_abilities
 
 ############# SET METHODS #############
 func set_shooting(_val: bool) -> void:

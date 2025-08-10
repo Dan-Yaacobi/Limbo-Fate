@@ -5,11 +5,13 @@ class_name ArrowStats extends Resource
 @export var air_resistance: float
 @export var weight: float
 
-@export var ability: ArrowAbility :
+@export var abilities: Array[ArrowAbility] :
 	set(_val):
-		ability = _val
+		abilities = _val
 		if arrow:
-			ability.arrow = arrow
+			for ability in abilities:
+				if ability:
+					ability.arrow = arrow
 
 var arrow: Arrow
 
