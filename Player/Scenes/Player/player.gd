@@ -19,6 +19,7 @@ var current_jumps: int = 0
 var gravity_applied: bool = true
 
 var shooting: bool = false
+var perfect_shot_counter: int = 0
 
 func _ready() -> void:
 	player_state_machine.Initialize(self)
@@ -134,7 +135,18 @@ func get_pull_speed() -> float:
 func get_strength_shot_modifier() -> float:
 	return get_strength() * 5 + stats.basic_shot_power
 
+func get_arrow_ability() -> ArrowAbility:
+	return stats.arrow_ability
+
+func get_perfect_shots_amount() -> int:
+	return perfect_shot_counter
 
 ############# SET METHODS #############
 func set_shooting(_val: bool) -> void:
 	shooting = _val
+	
+func set_perfect_shots(was_perfect: bool) -> void:
+	if was_perfect:
+		perfect_shot_counter += 1
+	else:
+		perfect_shot_counter = 0

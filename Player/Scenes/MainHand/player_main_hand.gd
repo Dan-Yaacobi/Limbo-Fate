@@ -77,17 +77,13 @@ func where_to_hold_arrow() -> Vector2:
 func change_direction() -> void:
 	position.x *= - 1
 
-func change_pulling() -> void:
-	pulling = not pulling
-	#if pulling:
-		#draw_arrow()
-	#else:
-		#set_offset(max_pull_state.hold_time)
-		#release_arrow()
 
 func release_arrow() -> void:
 	GlobalPlayer.set_shooting(false)
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
+		## if shot power is 1: max pull, if shot_offset = 0: released within perfect shot window
+		GlobalPlayer.set_perfect_shots(shot_power == 1 and shot_offset == 0)
+		
 		var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
 		
 		current_arrow.velocity = calc_shot_velocity(shot_power,direction)
@@ -96,7 +92,8 @@ func release_arrow() -> void:
 		current_arrow.set_dmg_modifier(shot_power)
 		current_arrow.arrow_shot()
 		current_arrow.reparent(get_tree().root)
-
+		current_arrow.set_ability(GlobalPlayer.get_arrow_ability())
+		
 	else:
 		current_arrow.free()
 	current_arrow = null
@@ -121,3 +118,7 @@ func swing_off_cooldown() -> void:
 	
 func is_swinging() -> bool:
 	return main_hand_state_machine.curr_state is SwingMainHandState
+
+func set_time_for_perfect_shot(amount: float) -> void:
+	if amount > 0:
+		max_pull_state.perfect_shot_time = amount

@@ -10,7 +10,9 @@ func AreaEnetered( a : Area2D) -> void:
 	if a is HitBox:
 		a.TakeDamage(self)
 		CombatTextSpawner.spawn(a.global_position, str(damage))
-		if get_parent() is Arrow:
-			get_parent().queue_free()
+		var arrow = get_parent()
+		if arrow is Arrow:
+			arrow.apply_ability(a.get_enemy())
+			arrow.queue_free()
 	pass
 	

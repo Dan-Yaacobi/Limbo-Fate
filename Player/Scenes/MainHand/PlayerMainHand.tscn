@@ -418,8 +418,8 @@ script = ExtResource("5_ysxrx")
 [node name="MaxPull" type="Node2D" parent="MainHandStateMachine"]
 script = ExtResource("6_i2jfe")
 
-[node name="TiredTimer" type="Timer" parent="MainHandStateMachine/MaxPull"]
-wait_time = 3.0
+[node name="PerfectShotWindow" type="Timer" parent="MainHandStateMachine/MaxPull"]
+wait_time = 0.5
 
 [node name="Swing" type="Node2D" parent="MainHandStateMachine"]
 script = ExtResource("8_ly83r")

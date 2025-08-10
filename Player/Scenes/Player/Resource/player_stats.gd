@@ -26,3 +26,6 @@ class_name PlayerStats extends Resource
 @export var can_dash: bool = false
 @export var dash_length: float = 1.0
 @export var dash_speed: float = 20
+
+@export_subgroup("SpecialAbilities")
+@export var arrow_ability: ArrowAbility

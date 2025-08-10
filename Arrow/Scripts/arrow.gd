@@ -10,6 +10,7 @@ var fired: bool = false
 func _ready() -> void:
 	trail_particles.visible = false
 	hurt_box.monitoring = false
+	stats.set_arrow(self)
 	pass
 
 func _process(_delta: float) -> void:
@@ -46,3 +47,11 @@ func calc_dmg() -> void:
 
 func set_dmg_modifier(_dmg_mod) -> void:
 	stats.dmg_modifier = _dmg_mod
+
+func set_ability(ability: ArrowAbility) -> void:
+	if ability:
+		stats.ability = ability
+		
+func apply_ability(_enemy: Enemy) -> void:
+	if stats.ability and _enemy:
+		stats.ability.activate_ability(_enemy)

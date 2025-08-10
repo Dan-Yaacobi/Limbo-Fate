@@ -17,9 +17,10 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	velocity += calc_direction_to_player() * stats.move_speed*delta
-	if change_direction():
-		velocity = Vector2.ZERO
+	if not stats.frozen:
+		velocity += calc_direction_to_player() * stats.move_speed*delta
+		if change_direction():
+			velocity = Vector2.ZERO
 	move_and_slide()
 	
 func calc_direction_to_player() -> Vector2:
@@ -45,9 +46,9 @@ func knocked_back(power: float, direction: Vector2) -> void:
 	if power > 0:
 		velocity = Vector2.ZERO
 		velocity = direction * power
-	
-func touch_player() -> void:
-	pass
+
+func freeze(state: bool) -> void:
+	stats.frozen = state
 
 func drop_items() -> void:
 	pass

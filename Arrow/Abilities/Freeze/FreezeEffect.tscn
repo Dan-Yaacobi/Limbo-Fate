@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qnlglhcxpoki"]
+
+[ext_resource type="Script" path="res://Arrow/Abilities/Freeze/freeze_effect.gd" id="1_2ya08"]
+
+[node name="FreezeEffect" type="Node2D"]
+script = ExtResource("1_2ya08")
+
+[node name="FreezeLength" type="Timer" parent="."]
