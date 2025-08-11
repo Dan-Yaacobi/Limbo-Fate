@@ -10,15 +10,22 @@ var current_direction: directions
 
 func _ready() -> void:
 	hit_box.Damaged.connect(_take_hit)
+	set_speeds()
+
+
+func set_speeds() -> void:
 	stats.current_hp = stats.max_hp
-	pass
+	stats.slowed_speed = stats.move_speed / 2
+	stats.max_slowed_speed = stats.max_speed / 2
+	stats.curr_speed = stats.move_speed
+	stats.curr_max_speed = stats.max_speed
 
 func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
 	if not stats.frozen:
-		velocity += calc_direction_to_player() * stats.move_speed*delta
+		velocity += calc_direction_to_player() * stats.curr_speed*delta
 		if change_direction():
 			velocity = Vector2.ZERO
 	move_and_slide()
@@ -49,7 +56,16 @@ func knocked_back(power: float, direction: Vector2) -> void:
 
 func freeze(state: bool) -> void:
 	stats.frozen = state
-
+	
+func slowed(state:bool) -> void:
+	stats.slowed = state
+	if stats.slowed:
+		stats.curr_speed = stats.slowed_speed
+		stats.curr_max_speed = stats.max_slowed_speed
+	else:
+		stats.curr_speed = stats.move_speed
+		stats.curr_max_speed = stats.max_speed
+	
 func drop_items() -> void:
 	pass
 

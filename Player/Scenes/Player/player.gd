@@ -83,15 +83,18 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 ############# JUMP METHODS #############
 func reset_jumps(_var1) -> void:
 	current_jumps = stats.total_jumps
-	body.animation_player.play("Idle")
+	update_body_animation("Idle")
 	
 func jump() -> void:
 	if current_jumps > 0:
 		var total_jump_power = stats.jump_power + get_agility()
-		body.animation_player.play("Jump")
+		update_body_animation("Jump")
 		current_jumps -= 1
 		velocity.y = 0
 		velocity.y -= total_jump_power / jump_handicap()
+
+func update_body_animation(_anim: String) -> void:
+	body.update_animation(_anim)
 
 func jump_handicap() -> float:
 	if shooting:

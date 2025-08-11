@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://deiub6awoufaj"]
+
+[ext_resource type="Texture2D" uid="uid://b27v33785u1no" path="res://Effects/Slow/Snowflake.png" id="1_e22ud"]
+
+[sub_resource type="Gradient" id="Gradient_urljv"]
+offsets = PackedFloat32Array(0, 0.52, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[node name="SlowEffect" type="CPUParticles2D"]
+amount = 1
+texture = ExtResource("1_e22ud")
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_urljv")

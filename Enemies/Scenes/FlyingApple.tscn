@@ -12,9 +12,14 @@ script = ExtResource("2_aen4r")
 max_hp = 20
 current_hp = 0
 touch_damage = 0
+curr_speed = 0.0
+curr_max_speed = 0.0
 move_speed = 10.0
 max_speed = 20.0
+slowed_speed = 5.0
+max_slowed_speed = 10.0
 frozen = false
+slowed = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qfnfg"]
 radius = 7.0

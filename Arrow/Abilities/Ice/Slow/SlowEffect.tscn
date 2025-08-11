@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dixy06v2hily5"]
+
+[ext_resource type="Script" path="res://Arrow/Abilities/Ice/Slow/slow_effect.gd" id="1_408k6"]
+[ext_resource type="PackedScene" uid="uid://deiub6awoufaj" path="res://Effects/Slow/SlowEffect.tscn" id="2_pcb1k"]
+
+[node name="SlowEffect" type="Node2D"]
+script = ExtResource("1_408k6")
+
+[node name="Slowtimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="SlowEffect" parent="." instance=ExtResource("2_pcb1k")]
+local_coords = true

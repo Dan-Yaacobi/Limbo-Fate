@@ -1,10 +1,10 @@
 [gd_scene load_steps=21 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Freeze/freeze.gd" id="2_3cmbn"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_ie83v"]
 [ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Ice/Slow/slow.gd" id="3_g6wlv"]
 [ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
 [ext_resource type="Script" path="res://Player/Abilities/player_ability.gd" id="4_a5jsg"]
 [ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
@@ -16,10 +16,10 @@
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/dash_state.gd" id="10_483r8"]
 [ext_resource type="PackedScene" uid="uid://gx0ttrql3dsf" path="res://General Nodes/HitBox/Hitbox.tscn" id="11_kmeak"]
 
-[sub_resource type="Resource" id="Resource_lhb7b"]
-script = ExtResource("2_3cmbn")
-required_perfect_shots = 3
-freeze_duration = 3.0
+[sub_resource type="Resource" id="Resource_yg1te"]
+script = ExtResource("3_g6wlv")
+required_perfects = 2
+slow_length = 4.0
 
 [sub_resource type="Resource" id="Resource_yx6sr"]
 script = ExtResource("6_h41xc")
@@ -43,7 +43,7 @@ total_jumps = 1
 can_dash = true
 dash_length = 0.2
 dash_speed = 150.0
-arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_lhb7b")])
+arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_yg1te")])
 shoot_abilities = Array[ExtResource("4_a5jsg")]([SubResource("Resource_yx6sr")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xurhv"]
