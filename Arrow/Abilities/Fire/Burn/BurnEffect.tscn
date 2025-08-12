@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://contc4ufdbhsg"]
+
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Burn/burn_effect.gd" id="1_dc1pm"]
+[ext_resource type="PackedScene" uid="uid://54c183akr43m" path="res://Effects/Burn/BurnParticle.tscn" id="1_gypx7"]
+
+[node name="BurnEffect" type="Node2D"]
+script = ExtResource("1_dc1pm")
+burn_color = Color(0.631373, 0, 0, 1)
+effect_id = 3
+
+[node name="BurnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BurnParticle" parent="." instance=ExtResource("1_gypx7")]
+scale_amount_min = 0.7
+scale_amount_max = 0.7
+
+[node name="BurnTick" type="Timer" parent="."]
+wait_time = 0.5

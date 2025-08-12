@@ -5,8 +5,6 @@ class_name SlowEffect extends Effect
 
 @export var slow_amount: float = 0.7
 
-var enemy: Enemy
-
 func _ready() -> void:
 	if get_parent() is Enemy:
 		enemy = get_parent()

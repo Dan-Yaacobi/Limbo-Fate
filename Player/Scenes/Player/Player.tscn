@@ -1,15 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://c0eeyvfjkf44k"]
+[gd_scene load_steps=19 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_ie83v"]
 [ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Ice/Chill/chill.gd" id="3_g6wlv"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Burn/burn.gd" id="3_gxfcb"]
 [ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
 [ext_resource type="Script" path="res://Player/Abilities/player_ability.gd" id="4_a5jsg"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Ice/Freeze/freeze.gd" id="4_gpgjk"]
 [ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Ice/FrostBite/frostbite.gd" id="5_kmn1m"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/player_state_machine.gd" id="5_v4l6t"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/idle_state.gd" id="6_0phaw"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/walk_state.gd" id="7_2he34"]
@@ -17,20 +15,9 @@
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/dash_state.gd" id="10_483r8"]
 [ext_resource type="PackedScene" uid="uid://gx0ttrql3dsf" path="res://General Nodes/HitBox/Hitbox.tscn" id="11_kmeak"]
 
-[sub_resource type="Resource" id="Resource_grgkg"]
-script = ExtResource("3_g6wlv")
+[sub_resource type="Resource" id="Resource_ftmhx"]
+script = ExtResource("3_gxfcb")
 required_perfects = 2
-slow_length = 4.0
-
-[sub_resource type="Resource" id="Resource_0kkck"]
-script = ExtResource("5_kmn1m")
-frostbite_dmg_mod = 40.0
-frost_color = Color(0.156863, 0.866667, 1, 1)
-
-[sub_resource type="Resource" id="Resource_05f03"]
-script = ExtResource("4_gpgjk")
-required_perfect_shots = 3
-freeze_duration = 3.0
 
 [sub_resource type="Resource" id="Resource_o120a"]
 script = ExtResource("2_65vyv")
@@ -50,7 +37,7 @@ total_jumps = 1
 can_dash = true
 dash_length = 0.2
 dash_speed = 150.0
-arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_grgkg"), SubResource("Resource_0kkck"), SubResource("Resource_05f03")])
+arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_ftmhx")])
 shoot_abilities = Array[ExtResource("4_a5jsg")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xurhv"]

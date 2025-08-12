@@ -48,6 +48,9 @@ func chilled(state:bool,amount: float = 1.0) -> void:
 	stats.chilled = state
 	stats.slowed_amount = amount
 
+func burn(state: bool) -> void:
+	stats.burned = state
+	
 func drop_items() -> void:
 	pass
 
@@ -58,6 +61,9 @@ func apply_movement(delta) -> void:
 func is_chilled() -> bool:
 	return stats.chilled
 
+func is_burnt() -> bool:
+	return stats.burned
+	
 func add_effect(effect_id: int, effect: Effect) -> void:
 	effects[effect_id] = effect
 

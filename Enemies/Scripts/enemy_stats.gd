@@ -15,3 +15,4 @@ class_name EnemyStats extends Resource
 @export var chilled: bool = false
 @export_range(0.0,1,0.05) var slowed_amount: float = 1.0
 @export var extra_dmg_mod: float = 1.0
+@export var burned: bool = false

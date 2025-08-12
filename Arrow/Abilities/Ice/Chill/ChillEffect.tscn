@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dixy06v2hily5"]
 
 [ext_resource type="Script" path="res://Arrow/Abilities/Ice/Chill/chill_effect.gd" id="1_yelea"]
-[ext_resource type="PackedScene" uid="uid://deiub6awoufaj" path="res://Effects/Slow/SlowEffect.tscn" id="2_f4c3m"]
+[ext_resource type="PackedScene" uid="uid://deiub6awoufaj" path="res://Effects/Chill/ChillParticle.tscn" id="2_f4c3m"]
 
 [node name="SlowEffect" type="Node2D"]
 z_index = 1

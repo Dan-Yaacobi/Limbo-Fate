@@ -1,7 +1,6 @@
 class_name FreezeEffect extends Effect
 
 @onready var freeze_length: Timer = $FreezeLength
-var enemy: Enemy
 
 func _ready() -> void:
 	if get_parent() is Enemy:
