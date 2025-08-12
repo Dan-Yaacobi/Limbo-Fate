@@ -1,4 +1,4 @@
-class_name FreezeEffect extends Node2D
+class_name FreezeEffect extends Effect
 
 @onready var freeze_length: Timer = $FreezeLength
 var enemy: Enemy

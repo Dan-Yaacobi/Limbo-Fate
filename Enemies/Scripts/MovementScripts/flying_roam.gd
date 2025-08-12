@@ -1,15 +1,22 @@
-class_name FlyingRoam extends EnemyMovement
+class_name FlyingChaseMovement extends EnemyMovement
 
 enum directions{TOP_LEFT,TOP_RIGHT,BOTTOM_LEFT,BOTTOM_RIGHT}
 
 var current_direction: directions
 
-func move_function(_global_position: Vector2) -> bool:
+func move_function(delta) -> void:
+	chasing_player_flying(delta)
+	
+func chasing_player_flying(delta) -> void:
+	enemy.velocity += calc_direction_to_player() * enemy.stats.move_speed * enemy.stats.slowed_amount * delta
+	if change_direction():
+		enemy.velocity = Vector2.ZERO
 
+func change_direction() -> bool:
 	var new_direction = null
 
-	var is_right = _global_position.x > GlobalPlayer.layer.global_position.x
-	var is_above = _global_position.y < GlobalPlayer.global_position.y
+	var is_right = enemy.global_position.x > GlobalPlayer.global_position.x
+	var is_above = enemy.global_position.y < GlobalPlayer.global_position.y
 
 	if is_right:
 		new_direction = directions.TOP_RIGHT if is_above else directions.BOTTOM_RIGHT

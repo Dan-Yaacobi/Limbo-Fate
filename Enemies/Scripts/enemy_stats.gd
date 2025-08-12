@@ -5,21 +5,13 @@ class_name EnemyStats extends Resource
 @export var current_hp: int
 @export var touch_damage: int
 
-
 @export_subgroup("Movement")
-@export var curr_speed: float
-@export var curr_max_speed: float
-@export var move_speed: float :
-	set(_val):
-		move_speed = _val
-		slowed_speed = move_speed / 2
-@export var max_speed: float:
-	set(_val):
-		max_speed = _val
-		max_slowed_speed = max_speed / 2
-@export var slowed_speed: float
-@export var max_slowed_speed: float
+@export var move_speed: float 
+@export var max_speed: float
+@export var move_function: EnemyMovement
 
 @export_subgroup("Effects")
 @export var frozen: bool = false
-@export var slowed: bool = false
+@export var chilled: bool = false
+@export_range(0.0,1,0.05) var slowed_amount: float = 1.0
+@export var extra_dmg_mod: float = 1.0

@@ -31,3 +31,10 @@ func crit() -> void:
 	
 func set_text(_text: String) -> void:
 	combat_text.text = _text
+
+func set_text_color(color: Color) -> void:
+	if color:
+		combat_text.add_theme_color_override("font_color", color)
+		
+		
+		

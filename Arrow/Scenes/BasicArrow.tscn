@@ -1,15 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://db1mqmde5v1v3"]
+[gd_scene load_steps=11 format=3 uid="uid://db1mqmde5v1v3"]
 
 [ext_resource type="Script" path="res://Arrow/Scripts/arrow.gd" id="1_76fva"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_5rq77"]
 [ext_resource type="Texture2D" uid="uid://bpt0rv4s6lijb" path="res://Arrow/Sprites/BasicArrow.png" id="2_5ubkl"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_stats.gd" id="2_b5ddo"]
 [ext_resource type="PackedScene" uid="uid://ck8i7ukrq5afx" path="res://General Nodes/HurtBox/HurtBox.tscn" id="4_fkwwa"]
+[ext_resource type="PackedScene" uid="uid://cju8g5p8o6k8s" path="res://Arrow/Scenes/DissapearNotifier.tscn" id="6_ng8o6"]
 
 [sub_resource type="Resource" id="Resource_48f1s"]
+resource_local_to_scene = true
 script = ExtResource("2_b5ddo")
 base_dmg = 1.0
-dmg_modifier = 0.0
+dmg_modifier = 1.0
 air_resistance = 0.0
 weight = 30.0
 abilities = Array[ExtResource("2_5rq77")]([])
@@ -52,3 +54,5 @@ emission_colors = PackedColorArray()
 gravity = Vector2(0, -10)
 scale_amount_curve = SubResource("Curve_2nfns")
 color_ramp = SubResource("Gradient_w6qdr")
+
+[node name="ArrowDissapearNotifier" parent="." instance=ExtResource("6_ng8o6")]

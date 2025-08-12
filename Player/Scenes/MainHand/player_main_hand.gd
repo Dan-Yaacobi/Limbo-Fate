@@ -20,9 +20,6 @@ var off_hand: PlayerOffHand
 var shot_offset: float = 0
 var can_swing: bool = true
 
-var dont_count_next_perfect: bool = false
-var last_shot_fake_perfect: bool = false
-
 func _ready() -> void:
 	main_hand_state_machine.Initialize(self)
 	swing_cooldown.timeout.connect(swing_off_cooldown)
@@ -89,30 +86,23 @@ func release_arrow() -> void:
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
 		## if shot power is 1: max pull, if shot_offset = 0: released within perfect shot window
 		fire_arrow()
-		if not dont_count_next_perfect:
-			GlobalPlayer.set_perfect_shots(shot_power == 1 and shot_offset == 0)
-		else:
-			last_shot_fake_perfect = true
-		print(GlobalPlayer.get_perfect_shots_amount())
-
 	else:
 		current_arrow.free()
 	current_arrow = null
-
+	
 func fire_arrow() -> void:
 	var direction = calc_offset_direction(hand_direction,shot_offset).normalized()
-	
+	if shot_power == 1 and shot_offset == 0:
+		current_arrow.perfect_shot = true
+
 	current_arrow.velocity = calc_shot_velocity(shot_power,direction)
 	current_arrow.fired = true
-	current_arrow.set_dmg_modifier(shot_power)
-	current_arrow.arrow_shot()
-	current_arrow.reparent(get_tree().root)
 	current_arrow.set_ability(GlobalPlayer.get_arrow_ability())
+	current_arrow.set_shot_power_mod(shot_power)
+	current_arrow.arrow_shot()
 	
-	if last_shot_fake_perfect:
-		dont_count_next_perfect = false
-		last_shot_fake_perfect = false
-		
+	current_arrow.reparent(get_tree().root)
+	
 func calc_shot_velocity(_shot_power,direction) -> Vector2:
 	return _shot_power * direction * GlobalPlayer.get_strength_shot_modifier()
 
@@ -138,9 +128,4 @@ func set_time_for_perfect_shot(amount: float) -> void:
 	if amount > 0:
 		max_pull_state.perfect_shot_time = amount
 
-func make_next_shot_perfect() -> void:
-	if not dont_count_next_perfect:
-		dont_count_next_perfect = true
-		shot_power = 1
-		shot_offset = 0
 		

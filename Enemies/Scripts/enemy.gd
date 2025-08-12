@@ -4,34 +4,21 @@ class_name Enemy extends CharacterBody2D
 @onready var hit_box: HitBox = $Hitbox
 @onready var hurt_box: HurtBox = $HurtBox
 
-enum directions{TOP_LEFT,TOP_RIGHT,BOTTOM_LEFT,BOTTOM_RIGHT}
-
-var current_direction: directions
+var effects: Dictionary = {}
 
 func _ready() -> void:
 	hit_box.Damaged.connect(_take_hit)
-	set_speeds()
-
-
-func set_speeds() -> void:
 	stats.current_hp = stats.max_hp
-	stats.slowed_speed = stats.move_speed / 2
-	stats.max_slowed_speed = stats.max_speed / 2
-	stats.curr_speed = stats.move_speed
-	stats.curr_max_speed = stats.max_speed
-
+	if stats.move_function:
+		stats.move_function.set_movement_function(self)
+	
 func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
 	if not stats.frozen:
-		velocity += calc_direction_to_player() * stats.curr_speed*delta
-		if change_direction():
-			velocity = Vector2.ZERO
+		apply_movement(delta)
 	move_and_slide()
-	
-func calc_direction_to_player() -> Vector2:
-	return (GlobalPlayer.global_position - global_position).normalized()
 
 func _take_hit(_hurt_box: HurtBox) -> void:
 	
@@ -45,7 +32,7 @@ func dead() -> void:
 	pass
 	
 func apply_dmg(dmg: int) -> void:
-	stats.current_hp -= dmg
+	stats.current_hp -= floor(dmg * stats.extra_dmg_mod)
 	if stats.current_hp <= 0:
 		dead()
 
@@ -57,37 +44,27 @@ func knocked_back(power: float, direction: Vector2) -> void:
 func freeze(state: bool) -> void:
 	stats.frozen = state
 	
-func slowed(state:bool) -> void:
-	stats.slowed = state
-	if stats.slowed:
-		stats.curr_speed = stats.slowed_speed
-		stats.curr_max_speed = stats.max_slowed_speed
-	else:
-		stats.curr_speed = stats.move_speed
-		stats.curr_max_speed = stats.max_speed
-	
+func chilled(state:bool,amount: float = 1.0) -> void:
+	stats.chilled = state
+	stats.slowed_amount = amount
+
 func drop_items() -> void:
 	pass
 
-func apply_movement() -> void:
-	pass
-	
-func change_direction() -> bool:
-	#if not stats.sharp_movement:
-		#return false
+func apply_movement(delta) -> void:
+	if stats.move_function:
+		stats.move_function.move_function(delta)
 
-	var new_direction = null
+func is_chilled() -> bool:
+	return stats.chilled
 
-	var is_right = global_position.x > GlobalPlayer.global_position.x
-	var is_above = global_position.y < GlobalPlayer.global_position.y
+func add_effect(effect_id: int, effect: Effect) -> void:
+	effects[effect_id] = effect
 
-	if is_right:
-		new_direction = directions.TOP_RIGHT if is_above else directions.BOTTOM_RIGHT
-	else:
-		new_direction = directions.TOP_LEFT if is_above else directions.BOTTOM_LEFT
+func remove_effect(effect_id: int) -> void:
+	effects.erase(effect_id)
 
-	if new_direction != current_direction:
-		current_direction = new_direction
-		return true
-
-	return false
+func get_effect(effect_id: int) -> Effect:
+	if effects.has(effect_id):
+		return effects[effect_id]
+	return null

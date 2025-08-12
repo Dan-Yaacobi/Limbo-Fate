@@ -6,6 +6,8 @@ class_name Arrow extends CharacterBody2D
 @export var stats: ArrowStats
 
 var fired: bool = false
+var perfect_shot: bool = false
+var shot_power_mod: float = 0
 
 func _ready() -> void:
 	trail_particles.visible = false
@@ -38,16 +40,20 @@ func rotate_arrow(angle: float) -> void:
 	pass
 
 func arrow_shot() -> void:
-	calc_dmg()
 	trail_particles.visible = true
 	hurt_box.monitoring = true
 	
 func calc_dmg() -> void:
-	hurt_box.damage = floor((GlobalPlayer.get_strength() + stats.base_dmg) * pow(stats.dmg_modifier,3))
+	hurt_box.damage = floor((GlobalPlayer.get_strength() + stats.base_dmg)
+	 * stats.dmg_modifier * shot_power_mod)
 
+	
 func set_dmg_modifier(_dmg_mod) -> void:
-	stats.dmg_modifier = _dmg_mod
-
+	stats.dmg_modifier += _dmg_mod
+	
+func set_shot_power_mod(_shot_power: float) -> void:
+	shot_power_mod = pow(_shot_power, 2)
+	
 func set_ability(abilities: Array[ArrowAbility]) -> void:
 	if abilities:
 		stats.abilities = abilities
@@ -56,4 +62,27 @@ func apply_ability(_enemy: Enemy) -> void:
 	if stats.abilities and _enemy:
 		for ability in stats.abilities:
 			if ability:
-				ability.activate_ability(_enemy)
+				ability.activate_ability(_enemy, self)
+
+func check_perfect(hit_enemy: bool = false) -> void:
+	GlobalPlayer.set_perfect_shots(perfect_shot and hit_enemy)
+
+func clear_arrow() -> void:
+	queue_free()
+
+func shot_missed() -> void:
+	GlobalPlayer.set_perfect_shots(false)
+
+func arrow_hit_resolve(_enemy: Enemy) -> void:
+	if _enemy:
+		check_perfect(true)
+		apply_ability(_enemy)
+		calc_dmg()
+		clear_arrow()
+
+func set_dmg_color(_color: Color) -> void:
+	if _color:
+		hurt_box.combat_text_color = _color
+
+func set_hit_effect_color(_color: Color) -> void:
+	hurt_box.effect_color = _color

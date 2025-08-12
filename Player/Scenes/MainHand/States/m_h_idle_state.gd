@@ -28,7 +28,7 @@ func Process(_delta: float) -> MainHandState:
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> MainHandState:
-	GlobalPlayer.shot_zoom(_delta*3, false,6,5)
+	#GlobalPlayer.shot_zoom(_delta*3, false,6,5)
 	return null
 	
 #what happens during input events in this state

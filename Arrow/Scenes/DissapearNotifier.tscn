@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cju8g5p8o6k8s"]
+
+[ext_resource type="Script" path="res://Arrow/Scripts/dissapear_notifier.gd" id="1_d1se3"]
+
+[node name="ArrowDissapearNotifier" type="VisibleOnScreenNotifier2D"]
+script = ExtResource("1_d1se3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0

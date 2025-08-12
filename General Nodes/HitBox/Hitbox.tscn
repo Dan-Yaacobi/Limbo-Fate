@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://gx0ttrql3dsf"]
+[gd_scene load_steps=4 format=3 uid="uid://gx0ttrql3dsf"]
 
 [ext_resource type="Script" path="res://General Nodes/HitBox/hit_box.gd" id="1_kod6q"]
+[ext_resource type="PackedScene" uid="uid://ce1cc1624pef1" path="res://Effects/EnemyHitEffect/EnemyHitEffect.tscn" id="2_dqolo"]
+
+[sub_resource type="Curve" id="Curve_2ejsc"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Hitbox" type="Area2D"]
 script = ExtResource("1_kod6q")
+
+[node name="EnemyHitEffect" parent="." instance=ExtResource("2_dqolo")]
+z_index = 1
+scale_amount_curve = SubResource("Curve_2ejsc")

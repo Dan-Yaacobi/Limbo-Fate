@@ -8,18 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://cmvfwkbt4uxux" path="res://Enemies/Scenes/Wings.tscn" id="5_o5muf"]
 
 [sub_resource type="Resource" id="Resource_h8e2j"]
+resource_local_to_scene = true
 script = ExtResource("2_aen4r")
-max_hp = 20
+max_hp = 100
 current_hp = 0
 touch_damage = 0
-curr_speed = 0.0
-curr_max_speed = 0.0
 move_speed = 10.0
 max_speed = 20.0
-slowed_speed = 5.0
-max_slowed_speed = 10.0
 frozen = false
-slowed = false
+chilled = false
+slowed_amount = 1.0
+extra_dmg_mod = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qfnfg"]
 radius = 7.0
