@@ -28,6 +28,9 @@ func _take_hit(_hurt_box: HurtBox) -> void:
 	velocity = Vector2.ZERO
 	
 func dead() -> void:
+	for id in effects.keys():
+		if effects[id] is Effect:
+			effects[id].end_effect()
 	queue_free()
 	pass
 	

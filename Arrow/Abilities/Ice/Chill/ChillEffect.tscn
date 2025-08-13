@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://Arrow/Abilities/Ice/Chill/chill_effect.gd" id="1_yelea"]
 [ext_resource type="PackedScene" uid="uid://deiub6awoufaj" path="res://Effects/Chill/ChillParticle.tscn" id="2_f4c3m"]
 
-[node name="SlowEffect" type="Node2D"]
+[node name="ChillEffect" type="Node2D"]
 z_index = 1
 script = ExtResource("1_yelea")
 effect_id = 1
 
-[node name="Slowtimer" type="Timer" parent="."]
+[node name="ChillTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="SlowEffect" parent="." instance=ExtResource("2_f4c3m")]
+[node name="ChillEffect" parent="." instance=ExtResource("2_f4c3m")]
 local_coords = true

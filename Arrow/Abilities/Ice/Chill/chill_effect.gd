@@ -1,7 +1,7 @@
-class_name SlowEffect extends Effect
+class_name ChillEffect extends Effect
 
-@onready var slowtimer: Timer = $Slowtimer
-@onready var slow_effect: CPUParticles2D = $SlowEffect
+@onready var chill_timer: Timer = $ChillTimer
+@onready var chill_effect: CPUParticles2D = $ChillEffect
 
 @export var slow_amount: float = 0.7
 
@@ -10,19 +10,18 @@ func _ready() -> void:
 		enemy = get_parent()
 		enemy.add_effect(effect_id,self)
 		enemy.chilled(true,slow_amount)
-		slowtimer.timeout.connect(slow_over)
+		chill_timer.timeout.connect(end_effect)
 	else:
-		slow_over()
+		end_effect()
 
-func set_slow_length(_amount: float) -> void:
-	slowtimer.wait_time = _amount
-	slowtimer.start()
+func apply_effect() -> void:
+	chill_timer.start()
 
-func slow_over() -> void:
+func end_effect() -> void:
 	if enemy:
 		enemy.chilled(false)
 	enemy.remove_effect(effect_id)
 	queue_free()
 
 func reapply_effect() -> void:
-	slowtimer.start()
+	chill_timer.start()

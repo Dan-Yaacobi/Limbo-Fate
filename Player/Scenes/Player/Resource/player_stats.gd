@@ -18,6 +18,7 @@ class_name PlayerStats extends Resource
 
 
 @export_subgroup("Movement")
+@export var speed: StatVar = StatVar.new()
 @export var move_speed: float
 @export var min_move_shoot_spd: float
 @export var gravity: float

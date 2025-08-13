@@ -1,4 +1,4 @@
-class_name SlowAbility extends ArrowAbility
+class_name ChillAbility extends ArrowAbility
 
 const CHILL_EFFECT = preload("res://Arrow/Abilities/Ice/Chill/ChillEffect.tscn")
 
@@ -15,4 +15,4 @@ func activate_ability(_enemy: Enemy, _arrow: Arrow) -> void:
 					effect.reapply_effect()
 			else:
 				_enemy.add_child(chill_effect)
-				chill_effect.set_slow_length(slow_length)
+				chill_effect.apply_effect()

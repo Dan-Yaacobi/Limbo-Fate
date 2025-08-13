@@ -51,10 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Jump",true):
 		jump()
 
-func swing() -> void:
-	pass
-
-
 func update_direction(_new_side: bool) -> void:
 	if _new_side != direction_side:
 		direction_side = _new_side
