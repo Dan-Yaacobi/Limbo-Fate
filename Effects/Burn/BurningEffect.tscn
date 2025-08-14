@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://brk7aduilhemr"]
+
+[ext_resource type="Texture2D" uid="uid://bp62orwk372on" path="res://Effects/Particles/Circle.png" id="1_dv73t"]
+
+[sub_resource type="Curve" id="Curve_l2sur"]
+max_value = 6.0
+_data = [Vector2(0, 6), 0.0, -6.04396, 0, 0, Vector2(0.831461, 1.25275), 0.0, 0.0, 0, 0, Vector2(1, 6), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_5wkoq"]
+max_value = 5.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.38764, 0), 0.0, 0.0, 0, 0, Vector2(1, 5), 13.7812, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_1hydq"]
+_data = [Vector2(0.0168539, 0.824176), 0.0, 0.0, 0, 0, Vector2(0.146067, 0.494505), 0.0, 0.0, 0, 0, Vector2(0.297753, 0.659341), 0.0, 0.0, 0, 0, Vector2(0.44382, 0.296703), 0.0, 0.0, 0, 0, Vector2(0.606742, 0.32967), 0.0, 0.0, 0, 0, Vector2(0.735955, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.848315, 0.142857), 0.0, 0.0, 0, 0, Vector2(0.993197, 0), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="Gradient" id="Gradient_lrnnf"]
+offsets = PackedFloat32Array(0, 0.74, 0.9)
+colors = PackedColorArray(1, 0.823529, 0, 0.517647, 1, 0, 0, 1, 0, 0, 0, 1)
+
+[node name="BurningEffect" type="CPUParticles2D"]
+modulate = Color(1, 1, 1, 0.427451)
+amount = 100
+lifetime = 2.0
+fixed_fps = 60
+local_coords = true
+draw_order = 1
+texture = ExtResource("1_dv73t")
+emission_shape = 2
+emission_sphere_radius = 5.0
+gravity = Vector2(0, -5)
+linear_accel_min = 6.0
+linear_accel_max = 6.0
+linear_accel_curve = SubResource("Curve_l2sur")
+radial_accel_max = 5.0
+radial_accel_curve = SubResource("Curve_5wkoq")
+scale_amount_curve = SubResource("Curve_1hydq")
+color_ramp = SubResource("Gradient_lrnnf")

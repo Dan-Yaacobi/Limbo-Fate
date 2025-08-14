@@ -1,3 +1,4 @@
 Chill: 1
 Freeze: 2
 Burn: 3
+Explosion: 4

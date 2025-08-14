@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwyi4d5yp8b2x"]
+
+[ext_resource type="Texture2D" uid="uid://dw1wae1kmrgnd" path="res://Effects/Burn/Burn.png" id="1_45b0r"]
+
+[sub_resource type="Gradient" id="Gradient_urljv"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="BurnEffect" type="CPUParticles2D"]
+z_index = 1
+emitting = false
+amount = 1
+one_shot = true
+local_coords = true
+texture = ExtResource("1_45b0r")
+gravity = Vector2(0, -50)
+color_ramp = SubResource("Gradient_urljv")

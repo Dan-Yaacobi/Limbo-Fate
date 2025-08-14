@@ -1,7 +1,6 @@
 class_name BurnEffect extends Effect
 
 @onready var burn_timer: Timer = $BurnTimer
-@onready var burn_particle: CPUParticles2D = $BurnParticle
 @onready var burn_tick: Timer = $BurnTick
 
 @export var burn_damage: int = 1

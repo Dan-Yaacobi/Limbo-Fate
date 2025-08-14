@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci0wp8qlmkruq"]
+[gd_scene load_steps=5 format=3 uid="uid://bhnguk0fco5kp"]
 
-[ext_resource type="Texture2D" uid="uid://bp62orwk372on" path="res://Effects/Particles/Circle.png" id="1_plv0x"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Explosion/explosion_effect.gd" id="1_t0hep"]
+[ext_resource type="PackedScene" uid="uid://ci0wp8qlmkruq" path="res://Effects/Burn/ExplosionParticleEffect.tscn" id="2_yvywy"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Explosion/ExplosionHurtBox.gd" id="3_02s1x"]
 
-[sub_resource type="Curve" id="Curve_1hydq"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.44898, 0.169643), 0.0, 0.0, 0, 0, Vector2(0.710884, 0.696429), 0.0, 0.0, 0, 0, Vector2(0.993197, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="CircleShape2D" id="CircleShape2D_6oide"]
+radius = 70.0
 
-[node name="ExplosionEffect" type="CPUParticles2D"]
-amount = 50
-lifetime = 3.0
-texture = ExtResource("1_plv0x")
-emission_shape = 1
-emission_sphere_radius = 5.0
-gravity = Vector2(0, -3)
-scale_amount_curve = SubResource("Curve_1hydq")
+[node name="ExplosionEffect" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_t0hep")
+effect_id = 4
+
+[node name="ExplosionEffect" parent="." instance=ExtResource("2_yvywy")]
+lifetime = 2.3
+
+[node name="ExplosionHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("3_02s1x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionHurtBox"]
+shape = SubResource("CircleShape2D_6oide")

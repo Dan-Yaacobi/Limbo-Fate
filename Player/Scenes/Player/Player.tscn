@@ -1,14 +1,12 @@
-[gd_scene load_steps=32 format=3 uid="uid://c0eeyvfjkf44k"]
+[gd_scene load_steps=28 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_ie83v"]
 [ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Burn/burn.gd" id="3_gxfcb"]
 [ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
 [ext_resource type="Script" path="res://Player/Abilities/player_ability.gd" id="4_a5jsg"]
 [ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
-[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Blaze/blaze.gd" id="5_mk18w"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/player_state_machine.gd" id="5_v4l6t"]
 [ext_resource type="Script" path="res://Stats/stat_var.gd" id="5_x7qqg"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/idle_state.gd" id="6_0phaw"]
@@ -20,13 +18,6 @@
 [sub_resource type="Resource" id="Resource_ndicv"]
 script = ExtResource("5_x7qqg")
 base = 5.0
-
-[sub_resource type="Resource" id="Resource_f4ci6"]
-script = ExtResource("3_gxfcb")
-required_perfects = 2
-
-[sub_resource type="Resource" id="Resource_u0aq0"]
-script = ExtResource("5_mk18w")
 
 [sub_resource type="Resource" id="Resource_vs6ly"]
 script = ExtResource("5_x7qqg")
@@ -82,7 +73,7 @@ total_jumps = SubResource("Resource_rjkig")
 dash_length = SubResource("Resource_qsgfy")
 dash_speed = SubResource("Resource_6eghh")
 can_dash = true
-arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_f4ci6"), SubResource("Resource_u0aq0")])
+arrow_abilities = Array[ExtResource("2_ie83v")]([])
 shoot_abilities = Array[ExtResource("4_a5jsg")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xurhv"]
