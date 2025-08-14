@@ -26,7 +26,7 @@ func _ready() -> void:
 	pass
 	
 func _process(_delta: float) -> void:
-	if GlobalPlayer.is_idle() and not GlobalPlayer.is_prev_jump():
+	if GlobalPlayer.is_idle(): # and not GlobalPlayer.is_prev_jump():
 		calculate_direction_to_cursor()
 	pass
 

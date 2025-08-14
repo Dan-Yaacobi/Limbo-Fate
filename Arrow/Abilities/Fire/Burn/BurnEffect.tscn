@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://brk7aduilhemr" path="res://Effects/Burn/BurningEffect.tscn" id="3_jh66r"]
 
 [node name="BurnEffect" type="Node2D"]
+z_index = -1
 script = ExtResource("1_dc1pm")
 burn_color = Color(0.631373, 0, 0, 1)
 effect_id = 3
@@ -12,7 +13,6 @@ effect_id = 3
 wait_time = 5.0
 
 [node name="BurningEffect" parent="." instance=ExtResource("3_jh66r")]
-z_index = -1
 scale = Vector2(0.5, 0.5)
 preprocess = 0.3
 

@@ -16,8 +16,8 @@ func _process(_delta: float) -> void:
 	pass
 
 func change_direction(direction: bool) -> void:
-	sprite.flip_h = direction
-	eyes_sprite.flip_h = direction
+	scale.x *= -1
+
 
 func blink() -> void:
 	var random_chance = randi_range(0,200)

@@ -78,7 +78,7 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 
 ############# JUMP METHODS #############
 func reset_jumps(_var1) -> void:
-	current_jumps = stats.total_jumps.final_stat()
+	current_jumps = stats.total_jumps
 	update_body_animation("Idle")
 	
 func jump() -> void:
@@ -122,10 +122,13 @@ func is_dash() -> bool:
 
 ############# GET METHODS #############
 func get_strength() -> int:
-	return stats.strength.final_stat()
+	return stats.strength
 	
 func get_agility() -> int:
-	return stats.agility.final_stat()
+	return stats.agility
+	
+func get_stamina() -> int:
+	return stats.stamina
 
 func get_pull_speed() -> float:
 	return stats.pull_speed + get_strength()*0.01
@@ -151,3 +154,13 @@ func set_perfect_shots(was_perfect: bool) -> void:
 		perfect_shot_counter += 1
 	else:
 		perfect_shot_counter = 0
+		
+############# ABILITIES METHODS #############
+
+func add_arrow_ability(_ability: ArrowAbility) -> void:
+	stats.arrow_abilities.append(_ability)
+
+func remove_arrow_ability(_ability: ArrowAbility) -> void:
+	for ability in stats.arrow_abilities:
+		if ability.get_class() == _ability.get_class():
+			stats.arrow_abilities.erase(ability)

@@ -4,8 +4,9 @@ class_name PlayerStats extends Resource
 @export var max_hp: int = 10
 @export var current_hp: int = 10
 @export var knockback_resistance: float = 0
-@export var strength: StatVar = StatVar.new()
-@export var agility: StatVar = StatVar.new()
+@export var strength: int
+@export var agility: int
+@export var stamina: int
 
 @export_subgroup("Shooting Stats")
 @export var max_pull_strength: float
@@ -16,13 +17,12 @@ class_name PlayerStats extends Resource
 	set(value):
 		pull_speed = clamp(value,1,2.5)
 
-
 @export_subgroup("Movement")
 @export var move_speed: StatVar = StatVar.new()
 @export var min_move_shoot_spd: StatVar = StatVar.new()
 @export var gravity: StatVar = StatVar.new()
 @export var jump_power: StatVar = StatVar.new()
-@export var total_jumps: StatVar = StatVar.new()
+@export var total_jumps: int = 1
 @export var dash_length: StatVar = StatVar.new()
 @export var dash_speed: StatVar = StatVar.new()
 @export var can_dash: bool = false

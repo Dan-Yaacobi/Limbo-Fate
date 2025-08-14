@@ -20,7 +20,7 @@ func _ready() -> void:
 #what happens when the player enters this state
 func Enter() -> void:
 	tired = false
-	perfect_shot_window.wait_time = perfect_shot_time
+	perfect_shot_window.wait_time = perfect_shot_time + GlobalPlayer.get_stamina()*0.1
 	perfect_aim_particles.rotation = entity.rotation
 	perfect_aim_particles.emitting = true
 	hold_time = 0

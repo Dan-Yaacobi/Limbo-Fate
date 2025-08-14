@@ -11,7 +11,6 @@ func _ready() -> void:
 		explosion_effect.emitting = true
 		explosion_effect.one_shot = true
 		hurt_box.damage = explosion_dmg
-	pass
 
 func _process(delta: float) -> void:
 	if !explosion_effect.emitting:
