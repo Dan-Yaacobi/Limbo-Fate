@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci0wp8qlmkruq"]
+
+[ext_resource type="Texture2D" uid="uid://bp62orwk372on" path="res://Effects/Particles/Circle.png" id="1_plv0x"]
+
+[sub_resource type="Curve" id="Curve_1hydq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.44898, 0.169643), 0.0, 0.0, 0, 0, Vector2(0.710884, 0.696429), 0.0, 0.0, 0, 0, Vector2(0.993197, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="ExplosionEffect" type="CPUParticles2D"]
+amount = 50
+lifetime = 3.0
+texture = ExtResource("1_plv0x")
+emission_shape = 1
+emission_sphere_radius = 5.0
+gravity = Vector2(0, -3)
+scale_amount_curve = SubResource("Curve_1hydq")

@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://c0eeyvfjkf44k"]
+[gd_scene load_steps=32 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
 [ext_resource type="Script" path="res://Arrow/Resource/arrow_ability.gd" id="2_ie83v"]
 [ext_resource type="PackedScene" uid="uid://cakf7lhpfqg2w" path="res://Player/Scenes/Body/PlayerBody.tscn" id="2_rikli"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Burn/burn.gd" id="3_gxfcb"]
 [ext_resource type="PackedScene" uid="uid://7vjvk5bghwkq" path="res://Player/Scenes/MainHand/PlayerMainHand.tscn" id="3_mpf64"]
 [ext_resource type="Script" path="res://Player/Abilities/player_ability.gd" id="4_a5jsg"]
 [ext_resource type="PackedScene" uid="uid://dxk6tfmffd8bb" path="res://Player/Scenes/OffHand/PlayerOffHand.tscn" id="4_oas5t"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Blaze/blaze.gd" id="5_mk18w"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/player_state_machine.gd" id="5_v4l6t"]
 [ext_resource type="Script" path="res://Stats/stat_var.gd" id="5_x7qqg"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/idle_state.gd" id="6_0phaw"]
@@ -15,30 +17,72 @@
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/dash_state.gd" id="10_483r8"]
 [ext_resource type="PackedScene" uid="uid://gx0ttrql3dsf" path="res://General Nodes/HitBox/Hitbox.tscn" id="11_kmeak"]
 
-[sub_resource type="Resource" id="Resource_2jsgw"]
+[sub_resource type="Resource" id="Resource_ndicv"]
+script = ExtResource("5_x7qqg")
+base = 5.0
+
+[sub_resource type="Resource" id="Resource_f4ci6"]
+script = ExtResource("3_gxfcb")
+required_perfects = 2
+
+[sub_resource type="Resource" id="Resource_u0aq0"]
+script = ExtResource("5_mk18w")
+
+[sub_resource type="Resource" id="Resource_vs6ly"]
+script = ExtResource("5_x7qqg")
+base = 100.0
+
+[sub_resource type="Resource" id="Resource_qsgfy"]
+script = ExtResource("5_x7qqg")
+base = 0.2
+
+[sub_resource type="Resource" id="Resource_6eghh"]
+script = ExtResource("5_x7qqg")
+base = 150.0
+
+[sub_resource type="Resource" id="Resource_ql101"]
+script = ExtResource("5_x7qqg")
+base = 150.0
+
+[sub_resource type="Resource" id="Resource_rx5gv"]
+script = ExtResource("5_x7qqg")
+base = 75.0
+
+[sub_resource type="Resource" id="Resource_rqg70"]
+script = ExtResource("5_x7qqg")
+base = 0.1
+
+[sub_resource type="Resource" id="Resource_t8a8t"]
 script = ExtResource("5_x7qqg")
 base = 50.0
+
+[sub_resource type="Resource" id="Resource_v87qu"]
+script = ExtResource("5_x7qqg")
+base = 5.0
+
+[sub_resource type="Resource" id="Resource_rjkig"]
+script = ExtResource("5_x7qqg")
+base = 1.0
 
 [sub_resource type="Resource" id="Resource_o120a"]
 script = ExtResource("2_65vyv")
 max_hp = 10
 current_hp = 10
 knockback_resistance = 0.0
-strength = 5
-agility = 5
+strength = SubResource("Resource_v87qu")
+agility = SubResource("Resource_ndicv")
 max_pull_strength = 0.0
-basic_shot_power = 100.0
+basic_shot_power = SubResource("Resource_vs6ly")
 pull_speed = 1.0
-speed = SubResource("Resource_2jsgw")
-move_speed = 50.0
-min_move_shoot_spd = 0.1
-gravity = 150.0
-jump_power = 75.0
-total_jumps = 1
+move_speed = SubResource("Resource_t8a8t")
+min_move_shoot_spd = SubResource("Resource_rqg70")
+gravity = SubResource("Resource_ql101")
+jump_power = SubResource("Resource_rx5gv")
+total_jumps = SubResource("Resource_rjkig")
+dash_length = SubResource("Resource_qsgfy")
+dash_speed = SubResource("Resource_6eghh")
 can_dash = true
-dash_length = 0.2
-dash_speed = 150.0
-arrow_abilities = Array[ExtResource("2_ie83v")]([])
+arrow_abilities = Array[ExtResource("2_ie83v")]([SubResource("Resource_f4ci6"), SubResource("Resource_u0aq0")])
 shoot_abilities = Array[ExtResource("4_a5jsg")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xurhv"]

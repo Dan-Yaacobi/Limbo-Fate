@@ -38,7 +38,7 @@ func Process(_delta: float) -> MainHandState:
 	entity.arrow_setup()
 	
 	entity.shot_power = Time.get_unix_time_from_system() - pull_start_time
-	if GlobalPlayer.current_speed > GlobalPlayer.stats.min_move_shoot_spd:
+	if GlobalPlayer.current_speed > GlobalPlayer.stats.min_move_shoot_spd.final_stat():
 		GlobalPlayer.current_speed -= _delta/2
 	return null
 	

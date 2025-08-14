@@ -7,7 +7,7 @@ class_name DashState extends PlayerState
 var dash_finished: bool = false
 
 func init() -> void:
-	dash_timer.wait_time = entity.stats.dash_length
+	dash_timer.wait_time = entity.stats.dash_length.final_stat()
 	dash_timer.timeout.connect(finished)
 	pass
 	
@@ -21,7 +21,7 @@ func Enter() -> void:
 	dash_timer.start()
 	#entity.body.update_animation("Dash")
 	entity.velocity.x = 0
-	entity.velocity.x = (entity.stats.dash_speed + entity.get_agility()) * entity.direction
+	entity.velocity.x = (entity.stats.dash_speed.final_stat() + entity.get_agility()) * entity.direction
 	pass
 	
 #what happens when the player exits this state

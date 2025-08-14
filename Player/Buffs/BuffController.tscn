@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci2ytvqv40s4h"]
-
-[ext_resource type="Script" path="res://Player/Buffs/buff_controller.gd" id="1_grk1o"]
-
-[node name="BuffController" type="Node2D"]
-script = ExtResource("1_grk1o")

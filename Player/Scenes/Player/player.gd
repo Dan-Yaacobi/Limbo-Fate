@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	if not is_dash():
-		var speed = stats.move_speed + get_agility()
+		var speed = stats.move_speed.final_stat() + get_agility()
 		velocity.x = speed * direction * current_speed
 	if gravity_applied:
 		apply_gravity(delta)
@@ -78,12 +78,12 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 
 ############# JUMP METHODS #############
 func reset_jumps(_var1) -> void:
-	current_jumps = stats.total_jumps
+	current_jumps = stats.total_jumps.final_stat()
 	update_body_animation("Idle")
 	
 func jump() -> void:
 	if current_jumps > 0:
-		var total_jump_power = stats.jump_power + get_agility()
+		var total_jump_power = stats.jump_power.final_stat() + get_agility()
 		update_body_animation("Jump")
 		current_jumps -= 1
 		velocity.y = 0
@@ -100,7 +100,7 @@ func jump_handicap() -> float:
 ############# GRAVITY METHODS #############
 func apply_gravity(_delta) -> void:
 	if velocity.y < 100:
-		velocity.y += _delta*stats.gravity
+		velocity.y += _delta*stats.gravity.final_stat()
 
 func gravity_off() -> void:
 	gravity_applied = false
@@ -122,16 +122,16 @@ func is_dash() -> bool:
 
 ############# GET METHODS #############
 func get_strength() -> int:
-	return stats.strength
+	return stats.strength.final_stat()
 	
 func get_agility() -> int:
-	return stats.agility
+	return stats.agility.final_stat()
 
 func get_pull_speed() -> float:
 	return stats.pull_speed + get_strength()*0.01
 
 func get_strength_shot_modifier() -> float:
-	return get_strength() * 5 + stats.basic_shot_power
+	return get_strength() * 5 + stats.basic_shot_power.final_stat()
 
 func get_arrow_ability() -> Array[ArrowAbility]:
 	return stats.arrow_abilities

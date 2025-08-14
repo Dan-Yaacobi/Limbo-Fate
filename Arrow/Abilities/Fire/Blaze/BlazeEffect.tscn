@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dasx31ywhvnrw"]
+
+[ext_resource type="Texture2D" uid="uid://bp62orwk372on" path="res://Effects/Particles/Circle.png" id="1_2ioui"]
+[ext_resource type="Script" path="res://Arrow/Abilities/Fire/Blaze/blaze_effect.gd" id="2_6pytw"]
+
+[sub_resource type="Curve" id="Curve_wsmuh"]
+_data = [Vector2(0, 0.4375), 0.0, -0.4375, 0, 1, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_kryny"]
+offsets = PackedFloat32Array(0, 0.383459)
+colors = PackedColorArray(1, 1, 0, 0, 0.639216, 0, 0, 1)
+
+[node name="BlazeEffect" type="CPUParticles2D"]
+position = Vector2(0, 10)
+amount = 200
+preprocess = 1.0
+speed_scale = 2.0
+randomness = 1.0
+local_coords = true
+draw_order = 1
+texture = ExtResource("1_2ioui")
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, -100)
+angular_velocity_max = 180.0
+scale_amount_curve = SubResource("Curve_wsmuh")
+color_ramp = SubResource("Gradient_kryny")
+script = ExtResource("2_6pytw")
