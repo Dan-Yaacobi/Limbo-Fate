@@ -19,6 +19,14 @@ config/icon="res://icon.svg"
 
 GlobalPlayer="*res://Player/Scenes/Player/Player.tscn"
 CombatTextSpawner="*res://00_Globals/CombatText/combat_text_spawner.gd"
+Hud="*res://HUD/HUD.tscn"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 

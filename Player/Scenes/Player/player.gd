@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+signal shot_power(amount)
+
 @onready var main_hand: PlayerMainHand = $PlayerMainHand
 @onready var off_hand_shoulder: Node2D = $OffHandShoulder
 @onready var off_hand: Node2D = $PlayerOffHand
@@ -96,6 +98,7 @@ func jump_handicap() -> float:
 	if shooting:
 		return 1.2
 	return 1
+
 
 ############# GRAVITY METHODS #############
 func apply_gravity(_delta) -> void:

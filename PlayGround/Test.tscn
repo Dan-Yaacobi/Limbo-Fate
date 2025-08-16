@@ -19,6 +19,7 @@ frozen = false
 chilled = false
 slowed_amount = 1.0
 extra_dmg_mod = 1.0
+burned = false
 
 [sub_resource type="Resource" id="Resource_w563v"]
 resource_local_to_scene = true
@@ -32,6 +33,7 @@ frozen = false
 chilled = false
 slowed_amount = 1.0
 extra_dmg_mod = 1.0
+burned = false
 
 [node name="Test" type="Node2D"]
 

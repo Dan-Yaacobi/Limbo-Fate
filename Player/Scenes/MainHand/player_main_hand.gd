@@ -1,5 +1,7 @@
 class_name PlayerMainHand extends CharacterBody2D
 
+signal shot_power_amount(amount)
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hold_position: Node2D = $HoldPosition
 @onready var main_hand_state_machine: MainHandStateMachine = $MainHandStateMachine

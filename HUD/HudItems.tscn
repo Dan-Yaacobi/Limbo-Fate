@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv12fa6ddygbb"]
+
+[ext_resource type="Texture2D" uid="uid://28uohsif6083" path="res://Items/Soul Fragment.png" id="1_avf2c"]
+
+[node name="HudItems" type="TextureRect"]
+texture = ExtResource("1_avf2c")

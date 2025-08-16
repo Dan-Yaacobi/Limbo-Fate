@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://bioumgquj5mvi"]
+
+[ext_resource type="PackedScene" uid="uid://cv12fa6ddygbb" path="res://HUD/HudItems.tscn" id="1_2huan"]
+[ext_resource type="Texture2D" uid="uid://bb3univq3fgiq" path="res://Items/Demon Heart.png" id="2_mjkuv"]
+[ext_resource type="Texture2D" uid="uid://dgsknfwi00euq" path="res://Items/Angelic Heart.png" id="3_4w000"]
+[ext_resource type="Texture2D" uid="uid://dwcxe218c6lun" path="res://HUD/EmptyPowerBar.png" id="4_gj6fd"]
+[ext_resource type="Texture2D" uid="uid://xwddqnwpoqch" path="res://HUD/FilledPowerBar.png" id="5_qhu3b"]
+[ext_resource type="Script" path="res://HUD/power_bar.gd" id="6_wsgak"]
+[ext_resource type="Texture2D" uid="uid://bn3fosqcpt063" path="res://HUD/FullBar.png" id="7_dfdtq"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CurrencyPanel" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 65.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CurrencyPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/CurrencyPanel/MarginContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="HudItems" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer" instance=ExtResource("1_2huan")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0
+"
+
+[node name="HudItems2" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer" instance=ExtResource("1_2huan")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("2_mjkuv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="HudItems3" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer" instance=ExtResource("1_2huan")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("3_4w000")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label3" type="Label" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Control2" type="Control" parent="CanvasLayer/CurrencyPanel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="PowerBar" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -238.0
+offset_top = 822.0
+offset_right = 210.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 4.71239
+value = 50.0
+texture_under = ExtResource("4_gj6fd")
+texture_progress = ExtResource("5_qhu3b")
+script = ExtResource("6_wsgak")
+
+[node name="CircleFilled" type="Sprite2D" parent="CanvasLayer/PowerBar"]
+position = Vector2(567, 116.999)
+rotation = 1.5708
+texture = ExtResource("7_dfdtq")
+hframes = 2
