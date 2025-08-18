@@ -15,7 +15,7 @@ class_name PlayerStats extends Resource
 	get:
 		return pull_speed
 	set(value):
-		pull_speed = clamp(value,1,2.5)
+		pull_speed = clamp(value,1,4)
 
 @export_subgroup("Movement")
 @export var move_speed: StatVar = StatVar.new()

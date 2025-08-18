@@ -84,8 +84,9 @@ func release_arrow() -> void:
 	for shoot_ability in GlobalPlayer.get_shoot_abilities():
 		if shoot_ability:
 			shoot_ability.activate_ability()
-	
+	GlobalPlayer.shake_screen.emit(shot_power)
 	if shot_power * GlobalPlayer.get_pull_speed() >= min_shot_power:
+		GlobalPlayer.apply_recoil(shot_power * 50)
 		## if shot power is 1: max pull, if shot_offset = 0: released within perfect shot window
 		fire_arrow()
 	else:

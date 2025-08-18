@@ -31,6 +31,8 @@ func Enter() -> void:
 	
 #what happens when the player exits this state
 func Exit() -> void:
+	if entity.shot_power <= 0:
+		entity.shot_power = entity.min_shot_power
 	entity.set_offset(hold_time)
 	entity.release_arrow()
 	hold_time = 0
@@ -40,6 +42,7 @@ func Process(_delta: float) -> MainHandState:
 	entity.arrow_setup()
 	if tired:
 		hold_time += _delta * 3
+		entity.shot_power -= _delta
 	return null
 	
 #what happens during _physics_process update in this state

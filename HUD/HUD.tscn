@@ -92,6 +92,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
 
 [node name="PowerBar" type="TextureProgressBar" parent="CanvasLayer"]
+visible = false
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
