@@ -26,9 +26,9 @@ var perfect_shot_counter: int = 0
 
 var velocity_x: float = 0
 var recoil_vx: float = 0
-var recoil_falloff: float = 400
+var recoil_falloff: float = 300
 
-var buffs: Array[Buff] = []
+var buffs: Dictionary = {}
 
 func _ready() -> void:
 	player_state_machine.Initialize(self)
@@ -91,14 +91,17 @@ func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
 		print("dead")
 	pass
 
-func add_buff(_buff: Buff) -> void:
+func add_buff(_buff: Buff, stat: StringName, _duration: float, _flat: float, _mult: float) -> void:
 	if _buff:
-		buffs.append(_buff)
+		if not buffs.has(_buff.buff_id):
+			buffs[_buff.buff_id] = _buff
+			add_child(_buff)
+			_buff.apply_buff(stat,_duration,_flat,_mult)
 
 func remove_buff(_buff: Buff) -> void:
 	if _buff:
-		if buffs.has(_buff):
-			buffs.erase(_buff)
+		if buffs.has(_buff.buff_id):
+			buffs.erase(_buff.buff_id)
 
 	
 ############# JUMP METHODS #############

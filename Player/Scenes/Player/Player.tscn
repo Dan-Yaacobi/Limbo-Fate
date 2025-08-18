@@ -25,6 +25,7 @@ required_perfects = 2
 
 [sub_resource type="Resource" id="Resource_7f87b"]
 script = ExtResource("5_mk18w")
+buff_id = 1
 
 [sub_resource type="Resource" id="Resource_p8h6t"]
 script = ExtResource("4_fywya")
@@ -69,7 +70,7 @@ agility = 5
 stamina = 5
 max_pull_strength = 0.0
 basic_shot_power = SubResource("Resource_vs6ly")
-pull_speed = 2.5
+pull_speed = 2.0
 move_speed = SubResource("Resource_t8a8t")
 min_move_shoot_spd = SubResource("Resource_rqg70")
 gravity = SubResource("Resource_ql101")

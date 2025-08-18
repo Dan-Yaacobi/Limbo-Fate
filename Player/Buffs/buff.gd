@@ -5,6 +5,8 @@ class_name Buff extends Node2D
 @export var flat: float
 @export var multiplier: float
 @export var duration: float
+@export var buff_id: int
+
 var stat
 
 var target_stats: PlayerStats
@@ -41,4 +43,5 @@ func end_buff() -> void:
 	if target_stats:
 		stat_to_change.add_flat(track_buff["flat"] * -1)
 		stat_to_change.add_mult(track_buff["mult"] * -1)
+	GlobalPlayer.remove_buff(self)
 	queue_free()
