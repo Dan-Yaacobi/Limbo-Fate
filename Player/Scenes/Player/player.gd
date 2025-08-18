@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 signal shot_power(amount)
+signal shake_screen(amount)
 
 @onready var main_hand: PlayerMainHand = $PlayerMainHand
 @onready var off_hand_shoulder: Node2D = $OffHandShoulder
@@ -23,23 +24,38 @@ var gravity_applied: bool = true
 var shooting: bool = false
 var perfect_shot_counter: int = 0
 
+var velocity_x: float = 0
+var recoil_vx: float = 0
+var recoil_falloff: float = 400
+
+var buffs: Array[Buff] = []
+
 func _ready() -> void:
 	player_state_machine.Initialize(self)
 	off_hand.connect_hands(main_hand, off_hand_shoulder)
 	main_hand.connect_hands(off_hand)
 	jump_reset.body_entered.connect(reset_jumps) #change this to body_shape_entered when moving to tiles!!!!!!!!!!!!!!!
 	
-func _process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	direction = Input.get_axis("Left","Right")
 	
-func _physics_process(delta: float) -> void:
 	if not is_dash():
-		var speed = stats.move_speed.final_stat() + get_agility()
-		velocity.x = speed * direction * current_speed
+		var speed = stats.move_speed.final_stat() + get_agility() * current_speed
+		var max_speed = speed * 1.5
+		if direction == 0:
+			velocity_x = 0.0
+		else:
+			if velocity_x != 0.0 and sign(velocity_x) != sign(direction):
+				velocity_x = 0
+			var target: float = speed * direction
+			velocity_x = move_toward(velocity_x,target,speed*delta)
+		recoil_vx = move_toward(recoil_vx, 0.0, recoil_falloff * delta)
+		velocity.x = velocity_x + recoil_vx
+		
 	if gravity_applied:
 		apply_gravity(delta)
 	move_and_slide()
-	
+
 #func shot_zoom(speed: float ,zoom_in: bool,max_zoom: float, min_zoom: float) -> void:
 	#return
 	#if zoom_in:
@@ -61,23 +77,30 @@ func update_direction(_new_side: bool) -> void:
 		off_hand_shoulder.position.x *= -1
 		off_hand.position = off_hand_shoulder.position
 	
-func apply_knockback(base_force: Vector2) -> void:
-	main_hand.pulling = false
-	velocity = Vector2.ZERO
-	velocity += base_force * (1.0 - stats.knockback_resistance)
+func apply_recoil(_amount: float) -> void:
+	var facing_sign: int = 1 - 2*int(direction_side)
+	recoil_vx += -facing_sign * _amount
 
 func apply_invincibility() -> void:
 	pass
 	
 func take_hit(amount: int = 0, knockback_power: Vector2 = Vector2.ZERO) -> void:
-	apply_knockback(knockback_power)
 	apply_invincibility()
 	stats.current_hp -= amount
 	if stats.current_hp <= 0:
 		print("dead")
 	pass
 
+func add_buff(_buff: Buff) -> void:
+	if _buff:
+		buffs.append(_buff)
 
+func remove_buff(_buff: Buff) -> void:
+	if _buff:
+		if buffs.has(_buff):
+			buffs.erase(_buff)
+
+	
 ############# JUMP METHODS #############
 func reset_jumps(_var1) -> void:
 	current_jumps = stats.total_jumps

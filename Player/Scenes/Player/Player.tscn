@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c0eeyvfjkf44k"]
+[gd_scene load_steps=32 format=3 uid="uid://c0eeyvfjkf44k"]
 
 [ext_resource type="Script" path="res://Player/Scenes/Player/player.gd" id="1_5ofxt"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/Resource/player_stats.gd" id="2_65vyv"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/air_state.gd" id="9_d4cib"]
 [ext_resource type="Script" path="res://Player/Scenes/Player/States/dash_state.gd" id="10_483r8"]
 [ext_resource type="PackedScene" uid="uid://gx0ttrql3dsf" path="res://General Nodes/HitBox/Hitbox.tscn" id="11_kmeak"]
+[ext_resource type="Script" path="res://Player/Scenes/Player/camera.gd" id="12_h4cdn"]
 
 [sub_resource type="Resource" id="Resource_setl5"]
 script = ExtResource("3_gxfcb")
@@ -68,7 +69,7 @@ agility = 5
 stamina = 5
 max_pull_strength = 0.0
 basic_shot_power = SubResource("Resource_vs6ly")
-pull_speed = 1.0
+pull_speed = 2.5
 move_speed = SubResource("Resource_t8a8t")
 min_move_shoot_spd = SubResource("Resource_rqg70")
 gravity = SubResource("Resource_ql101")
@@ -103,6 +104,7 @@ position = Vector2(2, 5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
+script = ExtResource("12_h4cdn")
 
 [node name="PlayerStateMachine" type="Node2D" parent="."]
 script = ExtResource("5_v4l6t")
