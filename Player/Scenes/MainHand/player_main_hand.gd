@@ -129,5 +129,3 @@ func is_swinging() -> bool:
 func set_time_for_perfect_shot(amount: float) -> void:
 	if amount > 0:
 		max_pull_state.perfect_shot_time = amount
-
-		

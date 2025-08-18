@@ -22,7 +22,7 @@ func AreaEnetered( a : Area2D) -> void:
 			
 			one_time_hit = true
 			parent.arrow_hit_resolve(a.get_enemy())
-			GlobalPlayer.shot_power.emit(parent.shot_power_mod)
+			EventBus.shot_power.emit(parent.shot_power_mod)
 		CombatTextSpawner.spawn(a.global_position, str(damage),combat_text_color)
 		a.TakeDamage(self)
 

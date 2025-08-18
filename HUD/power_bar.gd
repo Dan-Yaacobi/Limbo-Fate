@@ -5,7 +5,7 @@ class_name PowerBar extends TextureProgressBar
 signal full_bar
 
 func _ready() -> void:
-	GlobalPlayer.shot_power.connect(fill_bar)
+	EventBus.shot_power.connect(fill_bar)
 	value = 0
 
 func fill_bar(amount) -> void:

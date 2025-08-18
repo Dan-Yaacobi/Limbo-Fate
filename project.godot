@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalPlayer="*res://Player/Scenes/Player/Player.tscn"
 CombatTextSpawner="*res://00_Globals/CombatText/combat_text_spawner.gd"
 Hud="*res://HUD/HUD.tscn"
+EventBus="*res://00_Globals/event_bus.gd"
 
 [display]
 
