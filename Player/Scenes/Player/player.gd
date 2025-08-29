@@ -38,7 +38,6 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	direction = Input.get_axis("Left","Right")
-	
 	if not is_dash():
 		var speed = stats.move_speed.final_stat() + get_agility() * current_speed
 		var max_speed = speed * 1.5
@@ -68,6 +67,8 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Jump",true):
 		jump()
+	if event.is_action_pressed("Shoot"):
+		EventBus.start_shooting.emit()
 
 func update_direction(_new_side: bool) -> void:
 	if _new_side != direction_side:

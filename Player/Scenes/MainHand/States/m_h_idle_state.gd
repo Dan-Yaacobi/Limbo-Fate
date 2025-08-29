@@ -4,6 +4,7 @@ class_name IdleMainHandState extends MainHandState
 
 # store a refernece to the player this belongs to
 func init() -> void:
+	EventBus.start_shooting.connect(change_to_pulling)
 	pass
 	
 func _ready() -> void:
@@ -36,8 +37,8 @@ func HandleInput(_event: InputEvent) -> MainHandState:
 	if _event.is_action_pressed("Swing") and entity.can_swing:
 		state_machine.ChangeState(swing)
 		
-	if _event.is_action_pressed("Shoot"):
-		state_machine.ChangeState(pulling)
 	return null
-	
+
+func change_to_pulling() -> void:
+	state_machine.ChangeState(pulling)
 	
